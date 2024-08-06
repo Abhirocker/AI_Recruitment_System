@@ -12,13 +12,12 @@ def sign_up():
         password = request.form['password']
         name = request.form['name']
         email = request.form['email']
-        skills = request.form['skills']
         hashed_password = generate_password_hash(password)
 
         db = get_db()
         try:
-            db.execute('INSERT INTO users (username, password, name, email, skills) VALUES (?, ?, ?, ?, ?)', 
-                        (username, hashed_password, name, email, skills))
+            db.execute('INSERT INTO users (username, password, name, email) VALUES (?, ?, ?, ?)', 
+                        (username, hashed_password, name, email))
             db.commit()
             return redirect(url_for('auth.sign_in'))
         except sqlite3.IntegrityError:

@@ -34,6 +34,13 @@
         <button type="submit">Update Profile</button>
     </form>
 
+    <h3>Upload Resume</h3>
+    <form method="POST" action="/upload_resume" enctype="multipart/form-data">
+        <label for="resume">Upload Resume:</label>
+        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx,.pages,.txt,.rtf" required>
+        <button type="submit">Upload</button>
+    </form>
+
     <h3>Job Applications</h3>
     <ul>
         {% for job in job_applications %}

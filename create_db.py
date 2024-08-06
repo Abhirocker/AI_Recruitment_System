@@ -17,7 +17,7 @@ def init_db():
             password TEXT NOT NULL,
             name TEXT NOT NULL,
             email TEXT NOT NULL,
-            skills TEXT NOT NULL
+            skills Text
         );
         ''')
         cursor.execute('''
@@ -56,7 +56,16 @@ def verify_db():
         columns = [info[1] for info in cursor.fetchall()]
         print("Users table columns:", columns)
 
+def drop_tables():
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute('DROP TABLE IF EXISTS users;')
+        cursor.execute('DROP TABLE IF EXISTS job_applications;')  # Drop other tables as needed
+        conn.commit()
+    print("Tables dropped.")
+
 if __name__ == '__main__':
     init_db()
     update_db()
     verify_db()
+    drop_tables()
