@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/AB20463287/Desktop/Project01/lazyrecruit/venv"
+set -gx VIRTUAL_ENV "/Users/ri20449437/Desktop/LazyCode/LazyScripters/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
