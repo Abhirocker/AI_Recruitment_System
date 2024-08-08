@@ -21,7 +21,7 @@
         {% endif %}
     {% endwith %}
 
-    <form method="POST" action="/update_profile">
+    <form method="POST" action="{{url_for('user.update_profile')}}">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" value="{{ user_info.get('name', '') }}" required>
         
@@ -35,7 +35,7 @@
     </form>
 
     <h3>Upload Resume</h3>
-    <form method="POST" action="/upload_resume" enctype="multipart/form-data">
+    <form method="POST" action="{{url_for('user.upload_resume')}}" enctype="multipart/form-data">
         <label for="resume">Upload Resume:</label>
         <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx,.pages,.txt,.rtf" required>
         <button type="submit">Upload</button>
@@ -55,7 +55,7 @@
         {% endfor %}
     </ul>
 
-    <a href="/sign_out">Sign Out</a>
+    <a href="{{url_for('auth.sign_out')}}">Sign Out</a>
 </body>
 </html>
 

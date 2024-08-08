@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from create_db import get_db
 import sqlite3
@@ -17,7 +17,7 @@ def sign_up():
         db = get_db()
         try:
             db.execute('INSERT INTO users (username, password, name, email) VALUES (?, ?, ?, ?)', 
-                        (username, hashed_password, name, email))
+                        (username, hashed_password, password, name, email))
             db.commit()
             return redirect(url_for('auth.sign_in'))
         except sqlite3.IntegrityError:
@@ -30,16 +30,24 @@ def sign_in():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
+        login_type = request.form.get('login_type')  # Get the login type from the form
+        
         db = get_db()
-        user = db.execute('SELECT * FROM users WHERE username = ?', (username,)).fetchone()
-
-        if user and check_password_hash(user[2], password):
-            session['username'] = username
-            return redirect(url_for('home.home'))
+        user = db.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username, password)).fetchone()
+        
+        if user and password == user['password']:
+            session['username'] = user['username']
+            session['is_admin'] = user['is_admin']
+            
+            if login_type == 'admin' and user['is_admin']:
+                return redirect(url_for('admin.dashboard'))  # Redirect to admin dashboard
+            elif login_type == 'user':
+                return redirect(url_for('user.user_dashboard'))  # Redirect to user dashboard
+            else:
+                flash('Invalid login type for this user.')
         else:
-            return 'Invalid username or password.'
-
+            flash('Invalid credentials, please try again.')
+    
     return render_template('sign_in.html')
 
 @auth_blueprint.route('/sign_out')

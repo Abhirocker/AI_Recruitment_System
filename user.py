@@ -6,7 +6,8 @@ import PyPDF2
 from werkzeug.utils import secure_filename
 from text_extraction import extract_text_from_file, extract_skills_from_resume
 
-home_blueprint = Blueprint('home', __name__)
+user_blueprint = Blueprint('user', __name__)
+admin_blueprint = Blueprint('admin', __name__)
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'pages', 'txt', 'rtf'}
 
 def allowed_file(filename):
@@ -22,8 +23,8 @@ def get_job_applications(username):
     job_applications = db.execute('SELECT position, company FROM job_applications WHERE username = ?', (username,)).fetchall()
     return job_applications
 
-@home_blueprint.route('/')
-def home():
+@user_blueprint.route('/user_dashboard')
+def user_dashboard():
     if 'username' not in session:
         return redirect(url_for('auth.sign_in'))
 
@@ -36,9 +37,9 @@ def home():
     else:
         recommended_jobs = []
 
-    return render_template('home.html', username=username, user_info=user_info, job_applications=job_applications, recommended_jobs=recommended_jobs)
+    return render_template('user_dashboard.html', username=username, user_info=user_info, job_applications=job_applications, recommended_jobs=recommended_jobs)
 
-@home_blueprint.route('/update_profile', methods=['POST'])
+@user_blueprint.route('/update_profile', methods=['POST'])
 def update_profile():
     if 'username' not in session:
         return redirect(url_for('auth.sign_in'))
@@ -53,21 +54,21 @@ def update_profile():
     db.commit()
 
     flash('Profile updated successfully!')  # Flash message after updating the profile
-    return redirect(url_for('home.home'))
+    return redirect(url_for('user.user_dashboard'))
 
-@home_blueprint.route('/upload_resume', methods=['POST'])
+@user_blueprint.route('/upload_resume', methods=['POST'])
 def upload_resume():
     if 'username' not in session:
         return redirect(url_for('auth.sign_in'))
 
     if 'resume' not in request.files:
-        return 'No file part'
-        return redirect(url_for('home.home'))
+        flash('No file part')
+        return redirect(url_for('user.user_dashboard'))
     
     file = request.files['resume']
     if file.filename == '':
-        return 'No selected file'
-        return redirect(url_for('home.home'))
+        flash('No selected file')
+        return redirect(url_for('user.user_dashboard'))
     
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
@@ -85,7 +86,9 @@ def upload_resume():
         db.commit()
         
         flash('Profile updated successfully')
-        return redirect(url_for('home.home'))
+        return redirect(url_for('user.user_dashboard'))
     
     flash('Invalid file type')
-    return redirect(url_for('home.home'))
+    return redirect(url_for('user.user_dashboard'))
+
+

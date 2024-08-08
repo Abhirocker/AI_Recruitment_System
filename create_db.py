@@ -17,7 +17,8 @@ def init_db():
             password TEXT NOT NULL,
             name TEXT NOT NULL,
             email TEXT NOT NULL,
-            skills Text
+            skills Text,
+            is_admin INTEGER DEFAULT 0
         );
         ''')
         cursor.execute('''
@@ -30,7 +31,22 @@ def init_db():
         );
         ''')
         conn.commit()
-    print("Database initialized and table created.")
+
+# Insert predefined admin user if it doesn't already exist
+    admin_username = 'admin'
+    admin_password = 'admin_123'  # Direct password storage
+    cursor.execute('SELECT * FROM users WHERE username = ?', (admin_username,))
+    admin_exists = cursor.fetchone()
+        
+    if not admin_exists:
+        cursor.execute('''
+        INSERT INTO users (username, password, name, email, is_admin)
+        VALUES (?, ?, ?, ?, ?)
+        ''', (admin_username, admin_password, 'Admin', 'admin@lazy.com', 1))
+
+    conn.commit()
+print("Database initialized and table created.")
+
 
 def update_db():
     with sqlite3.connect(DATABASE) as conn:
@@ -45,6 +61,8 @@ def update_db():
             cursor.execute('ALTER TABLE users ADD COLUMN email TEXT NOT NULL DEFAULT ""')
         if 'skills' not in columns:
             cursor.execute('ALTER TABLE users ADD COLUMN skills TEXT NOT NULL DEFAULT ""')
+        if 'is_admin' not in columns:
+            cursor.execute('ALTER TABLE users ADD COLUMN is_admin INTEGER DEFAULT 0')
         
         conn.commit()
     print("Database updated with new columns.")
