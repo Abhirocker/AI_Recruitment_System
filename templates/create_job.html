@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Job Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Create Job Application</h1>
+    <form method="POST">
+        <label for="position">Position:</label>
+        <input type="text" id="position" name="position" required>
+        
+        <label for="company">Company:</label>
+        <input type="text" id="company" name="company" required>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required><br>
+
+        <label for="experience_range">Experience required:</label>
+        <input list="experience_ranges" id="experience_range" name="experience_range" placeholder="Enter experience range (e.g., 0-3 years)" required>
+        <datalist id="experience_ranges">
+            <option value="0-3 years">
+            <option value="4-8 years">
+            <option value="9-15 years">
+            <option value="15+ years">
+        </datalist>
+        
+        <label for="description">Job Description:</label>
+        <textarea id="description" name="description" required></textarea>
+        
+        <button type="submit">Create Job</button>
+    </form>
+
+    <a href="{{ url_for('admin.dashboard') }}">Back to Dashboard</a>
+</body>
+</html>

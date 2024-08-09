@@ -43,8 +43,12 @@
 
     <h3>Job Applications</h3>
     <ul>
-        {% for job in job_applications %}
-            <li>{{ job.position }} at {{ job.company }}</li>
+        {% for application in job_applications %}
+            <tr>
+                <td>{{ application.position }}</td>
+                <td>{{ application.company }}</td>
+                <td>{{ application.application_date }}</td>
+            </tr>
         {% endfor %}
     </ul>
     

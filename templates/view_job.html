@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Job Applications</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Job Applications for {{ job.position }} at {{ job.company }}</h1>
+    
+    <h2>Applications</h2>
+    
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Application Date</th>
+            <th>Resume</th>
+        </tr>
+        {% for application in applications %}
+            <tr>
+                <td>{{ application.username }}</td>
+                <td><a href="{{ application.resume }}">View Resume</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{{ url_for('admin.dashboard') }}">Back to Dashboard</a>
+</body>
+</html>

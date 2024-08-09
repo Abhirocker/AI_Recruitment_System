@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wipro Limited Job Recruitment Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="{{ url_for('static', filename='wipro.png') }}" alt="Wipro Limited">
+    </div>
+    <nav>
+        <ul>
+            <!-- <li><a href="#home">Home</a></li> -->
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#why-work-with-us">Why Work With Us?</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+<section id="home" class="banner">
+    <video autoplay muted loop id="bg-video">
+        <source src="{{ url_for('static', filename='frontvideo.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="banner-content">
+        <h1>Welcome to Wipro Limited Recruitment Portal</h1>
+        <p>Join us in our journey of innovation and excellence.</p>
+        <button class="apply-now-btn" onclick="window.location.href='{{ url_for('auth.sign_in') }}'">Apply Now</button>
+    </div>
+</section>
+<section id="about" class="about">
+    <h2>About Wipro</h2>
+    <p>Wipro Limited is a leading global information technology, consulting, and business process services company. At every step, we...</p>
+</section>
+<section id="why-work-with-us" class="why-work-with-us">
+    <h2>Why Work With Us?</h2>
+    <div class="reasons-container">
+        <div class="reason">
+            <img src="{{ url_for('static', filename='innovation-icon.png') }}" alt="Innovation Icon">
+            <h3>Innovative Environment</h3>
+            <p>We foster a culture of innovation and continuous improvement.</p>
+        </div>
+        <div class="reason">
+            <img src="{{ url_for('static', filename='global-icon.png') }}" alt="Global Opportunities Icon">
+            <h3>Global Opportunities</h3>
+            <p>Work on projects that impact clients around the world.</p>
+        </div>
+        <div class="reason">
+            <img src="{{ url_for('static', filename='growth-icon.png') }}" alt="Career Growth Icon">
+            <h3>Career Growth</h3>
+            <p>We offer career development programs to help you advance.</p>
+        </div>
+        <div class="reason">
+            <img src="{{ url_for('static', filename='balance-icon.png') }}" alt="Work-Life Balance Icon">
+            <h3>Work-Life Balance</h3>
+            <p>We prioritize a healthy balance between work and personal life.</p>
+        </div>
+    </div>
+</section>
+<section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <p>Email: careers@wipro.com</p>
+    <p>Phone: +91 80 1234 5678</p>
+</section>
+<footer>
+    <p>&copy; 2024 Wipro Limited. All rights reserved.</p>
+</footer>
+</body>
+</html>

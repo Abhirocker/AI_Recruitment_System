@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+.flash-messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.flash-messages li {
+    background-color: #dff0d8;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-left: 4px solid #3c763d;;
+}
+
+a {
+    display: inline-block;
+    margin: 15px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+}
+
+a:hover {
+    background-color: #0056b3;
+}
+
+.job-applications {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.job-box {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+    width: 350px;
+    min-height: 150px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.job-box h2 {
+    margin-top: 0;
+    color: #007bff;
+}
+
+.job-box p {
+    margin: 5px 0;
+}
+
+.job-box:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.job-title {
+    font-size: 1.2em;
+    color: #333;
+}
+
+.update-btn, .delete-btn {
+    position: absolute;
+    display: inline-block;
+    padding: 5px 5px;
+    bottom: 10px;
+    margin: 5px;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.update-btn {
+    background-color: #007bff;
+    right: 90px;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    right: 10px;
+}
+
+.update-btn:hover {
+    background-color: #0056b3;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.read-more {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    font-size: 0.9em;
+    color: #08691b;
+    background: transparent;
+    text-decoration: none;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}

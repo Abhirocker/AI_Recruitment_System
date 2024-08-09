@@ -20,7 +20,13 @@ def get_user_info(username):
 
 def get_job_applications(username):
     db = get_db()
-    job_applications = db.execute('SELECT position, company FROM job_applications WHERE username = ?', (username,)).fetchall()
+    job_applications = db.execute('''
+        SELECT ja.position, ja.company
+        FROM job_applications ja
+        JOIN user_applications ua ON ja.id = ua.job_id
+        JOIN users u ON ua.user_id = u.id
+        WHERE u.username = ?
+    ''', (username,)).fetchall()
     return job_applications
 
 @user_blueprint.route('/user_dashboard')

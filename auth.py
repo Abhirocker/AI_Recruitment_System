@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from werkzeug.security import generate_password_hash, check_password_hash
+# from werkzeug.security import generate_password_hash, check_password_hash
 from create_db import get_db
 import sqlite3
 
@@ -12,12 +12,11 @@ def sign_up():
         password = request.form['password']
         name = request.form['name']
         email = request.form['email']
-        hashed_password = generate_password_hash(password)
 
         db = get_db()
         try:
             db.execute('INSERT INTO users (username, password, name, email) VALUES (?, ?, ?, ?)', 
-                        (username, hashed_password, password, name, email))
+                        (username, password, name, email))
             db.commit()
             return redirect(url_for('auth.sign_in'))
         except sqlite3.IntegrityError:

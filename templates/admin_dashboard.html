@@ -4,10 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_dashboard.css') }}">
 </head>
 <body>
     <h1>Welcome, Admin</h1>
-    <p>This is the admin dashboard.</p>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <a href="{{ url_for('admin.create_job') }}">Create New Job Application</a>
+    
+    <!-- Job Applications Boxes -->
+    <div class="job-applications">
+        {% for job in job_applications %}
+        <div class="job-box" onclick="window.location.href='{{ url_for('admin.view_job', job_id=job.id) }}'">
+            <h2 class="job-title">{{ job.position }}</h2>
+            <p><strong>Location:</strong> {{ job.location }}</p>
+            <p><strong>Posted Date:</strong> {{ job.posted_date }}</p>
+            <p><strong>Job ID:</strong> {{ job.id }}</p>
+            <p class="read-more">Read More</p>
+            <a href="{{ url_for('admin.edit_job', job_id=job.id) }}" class="update-btn">Update</a>
+            <a href="{{ url_for('admin.delete_job', job_id=job.id) }}" class="delete-btn" onclick="return confirm('Are you sure you want to delete this job?');">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
+
     <a href="{{url_for('auth.sign_out')}}">Logout</a>
 </body>
 </html>
