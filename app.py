@@ -1,5 +1,5 @@
 import os
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, send_from_directory
 from create_db import init_db
 from auth import auth_blueprint
 from user import user_blueprint
@@ -20,6 +20,10 @@ app.register_blueprint(admin_blueprint, url_prefix='/admin')
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/animations/<path:filename>')
+def animations(filename):
+   return send_from_directory('Animations', filename)
 
 # Ensure the upload folder exists
 if not os.path.exists(app.config['UPLOAD_FOLDER']):

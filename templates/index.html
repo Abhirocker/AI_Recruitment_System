@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wipro Limited Job Recruitment Portal</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index_style.css') }}">
 </head>
 <body>
 <header>
     <div class="logo">
-        <img src="{{ url_for('static', filename='wipro.png') }}" alt="Wipro Limited">
+        <img src="{{ url_for('animations', filename='wipro.png') }}" alt="Wipro Limited">
     </div>
     <nav>
         <ul>
@@ -22,7 +22,7 @@
 </header>
 <section id="home" class="banner">
     <video autoplay muted loop id="bg-video">
-        <source src="{{ url_for('static', filename='frontvideo.mp4') }}" type="video/mp4">
+        <source src="{{ url_for('animations', filename='frontvideo.mp4') }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>
     <div class="banner-content">
@@ -39,22 +39,22 @@
     <h2>Why Work With Us?</h2>
     <div class="reasons-container">
         <div class="reason">
-            <img src="{{ url_for('static', filename='innovation-icon.png') }}" alt="Innovation Icon">
+            <img src="{{ url_for('animations', filename='innovation-icon.png') }}" alt="Innovation Icon">
             <h3>Innovative Environment</h3>
             <p>We foster a culture of innovation and continuous improvement.</p>
         </div>
         <div class="reason">
-            <img src="{{ url_for('static', filename='global-icon.png') }}" alt="Global Opportunities Icon">
+            <img src="{{ url_for('animations', filename='global-icon.png') }}" alt="Global Opportunities Icon">
             <h3>Global Opportunities</h3>
             <p>Work on projects that impact clients around the world.</p>
         </div>
         <div class="reason">
-            <img src="{{ url_for('static', filename='growth-icon.png') }}" alt="Career Growth Icon">
+            <img src="{{ url_for('animations', filename='growth-icon.png') }}" alt="Career Growth Icon">
             <h3>Career Growth</h3>
             <p>We offer career development programs to help you advance.</p>
         </div>
         <div class="reason">
-            <img src="{{ url_for('static', filename='balance-icon.png') }}" alt="Work-Life Balance Icon">
+            <img src="{{ url_for('animations', filename='balance-icon.png') }}" alt="Work-Life Balance Icon">
             <h3>Work-Life Balance</h3>
             <p>We prioritize a healthy balance between work and personal life.</p>
         </div>
