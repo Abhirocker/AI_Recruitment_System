@@ -1,65 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='user_dashboard.css') }}">
 </head>
 <body>
-    <h1>Welcome, {{ username }}!</h1>
-    <h2>Your Portfolio</h2>
-
-    <!-- Flash messages -->
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class="flash-messages">
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-
-    <form method="POST" action="{{url_for('user.update_profile')}}">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="{{ user_info.get('name', '') }}" required>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="{{ user_info.get('email', '') }}" required>
-        
-        <label for="skills">Skills:</label>
-        <input type="text" id="skills" name="skills" value="{{ user_info.get('skills', '') }}" required>
-        
-        <button type="submit">Update Profile</button>
-    </form>
-
-    <h3>Upload Resume</h3>
-    <form method="POST" action="{{url_for('user.upload_resume')}}" enctype="multipart/form-data">
-        <label for="resume">Upload Resume:</label>
-        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx,.pages,.txt,.rtf" required>
-        <button type="submit">Upload</button>
-    </form>
-
-    <h3>Job Applications</h3>
-    <ul>
-        {% for application in job_applications %}
-            <tr>
-                <td>{{ application.position }}</td>
-                <td>{{ application.company }}</td>
-                <td>{{ application.application_date }}</td>
-            </tr>
-        {% endfor %}
-    </ul>
-    
-    <h3>Recommended Jobs</h3>
-    <ul>
-        {% for job in recommended_jobs %}
-            <li>{{ job.position }} at {{ job.company }}</li>
-        {% endfor %}
-    </ul>
-
-    <a href="{{url_for('auth.sign_out')}}">Sign Out</a>
+<div class="dashboard-container">
+<h1>Welcome, {{ username }}!</h1>
+<h2>Your Portfolio</h2>
+<!-- Flash messages -->
+       {% with messages = get_flashed_messages() %}
+       {% if messages %}
+<ul class="flash-messages">
+           {% for message in messages %}
+<li>{{ message }}</li>
+           {% endfor %}
+</ul>
+       {% endif %}
+       {% endwith %}
+<form method="POST" action="{{ url_for('user.update_profile') }}">
+<label for="name">Name:</label>
+<input type="text" id="name" name="name" value="{{ user_info.get('name', '') }}" required>
+<label for="email">Email:</label>
+<input type="email" id="email" name="email" value="{{ user_info.get('email', '') }}" required>
+<label for="skills">Skills:</label>
+<input type="text" id="skills" name="skills" value="{{ user_info.get('skills', '') }}" required>
+<button type="submit">Update Profile</button>
+</form>
+<h3>Upload Resume</h3>
+<form method="POST" action="{{ url_for('user.upload_resume') }}" enctype="multipart/form-data">
+<label for="resume">Upload Resume:</label>
+<input type="file" id="resume" name="resume" accept=".pdf, .doc, .docx, .pages, .txt, .rtf" required>
+<button type="submit">Upload</button>
+</form>
+<h3>Job Applications</h3>
+<ul>
+           {% for application in job_applications %}
+<li>{{ application.position }} at {{ application.company }} ({{ application.application_date }})</li>
+           {% endfor %}
+</ul>
+<h3>Recommended Jobs</h3>
+<ul>
+           {% for job in recommended_jobs %}
+<li>{{ job.position }} at {{ job.company }}</li>
+           {% endfor %}
+</ul>
+<a href="{{ url_for('auth.sign_out') }}" class="sign-out-link">Sign Out</a>
+</div>
 </body>
 </html>
-

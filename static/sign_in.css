@@ -1,0 +1,95 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+ }
+ .container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    box-sizing: border-box;
+ }
+ h1 {
+    font-size: 2.5em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+ }
+ /* Form Styles */
+ form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+ }
+ label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+ }
+ input[type="text"],
+ input[type="password"],
+ select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+ }
+ button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+ }
+ button:hover {
+    background-color: #0056b3;
+ }
+ /* Flash Message Styles */
+ .flash-messages {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+ }
+ .flash-messages li {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: white;
+ }
+ .flash-success {
+    background-color: #28a745;
+ }
+ .flash-error {
+    background-color: #dc3545;
+ }
+ .flash-info {
+    background-color: #17a2b8;
+ }
+ .flash-warning {
+    background-color: #ffc107;
+ }
+ /* Sign-Up Link */
+ .sign-up-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #007BFF;
+    text-decoration: none;
+ }
+ .sign-up-link:hover {
+    text-decoration: underline;
+ }
