@@ -47,54 +47,44 @@ def user_dashboard():
 
 @user_blueprint.route('/update_profile', methods=['POST'])
 def update_profile():
-    if 'username' not in session:
-        return redirect(url_for('auth.sign_in'))
-    
-    username = session['username']
-    name = request.form['name']
-    email = request.form['email']
-    skills = request.form['skills']
-
-    db = get_db()
-    db.execute('UPDATE users SET name = ?, email = ?, skills = ? WHERE username = ?', (name, email, skills, username))
-    db.commit()
-
-    flash('Profile updated successfully!')  # Flash message after updating the profile
-    return redirect(url_for('user.user_dashboard'))
+   if 'username' not in session:
+       return redirect(url_for('auth.sign_in'))
+   username = session['username']
+   name = request.form['name']
+   email = request.form['email']
+   skills = request.form['skills']
+   db = get_db()
+   db.execute('UPDATE users SET name = ?, email = ?, skills = ? WHERE username = ?',
+              (name, email, skills, username))
+   db.commit()
+   flash('Profile updated successfully!')  # Flash message after updating the profile
+   return redirect(url_for('user.user_dashboard'))
 
 @user_blueprint.route('/upload_resume', methods=['POST'])
 def upload_resume():
-    if 'username' not in session:
-        return redirect(url_for('auth.sign_in'))
-
-    if 'resume' not in request.files:
-        flash('No file part')
-        return redirect(url_for('user.user_dashboard'))
-    
-    file = request.files['resume']
-    if file.filename == '':
-        flash('No selected file')
-        return redirect(url_for('user.user_dashboard'))
-    
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-        file.save(filepath)
-        
-        # Extract text from the file
-        text = extract_text_from_file(filepath)
-        
-        skills = extract_skills_from_resume(text)
-        username = session['username']
-        
-        db = get_db()
-        db.execute('UPDATE users SET skills = ? WHERE username = ?', (skills, username))
-        db.commit()
-        
-        flash('Profile updated successfully')
-        return redirect(url_for('user.user_dashboard'))
-    
-    flash('Invalid file type')
-    return redirect(url_for('user.user_dashboard'))
+   if 'username' not in session:
+       return redirect(url_for('auth.sign_in'))
+   if 'resume' not in request.files:
+       flash('No file part')
+       return redirect(url_for('user.user_dashboard'))
+   file = request.files['resume']
+   if file.filename == "":
+       flash('No selected file')
+       return redirect(url_for('user.user_dashboard'))
+   if file and allowed_file(file.filename):
+       filename = secure_filename(file.filename)
+       filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+       file.save(filepath)
+       # Extract text from the file
+       text = extract_text_from_file(filepath)
+       skills = extract_skills_from_resume(text)
+       username = session['username']
+       db = get_db()
+       db.execute('UPDATE users SET skills = ? WHERE username = ?', (skills, username))
+       db.commit()
+       flash('Resume uploaded successfully!')  # Flash message after uploading the resume
+       return redirect(url_for('user.user_dashboard'))
+   flash('Invalid file type')
+   return redirect(url_for('user.user_dashboard'))
 
 

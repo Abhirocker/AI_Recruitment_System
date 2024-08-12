@@ -8,9 +8,7 @@
 </head>
 <body>
 <div class="dashboard-container">
-<h1>Welcome, {{ user_info.get('name', '') }}!</h1>
-<h2>Your Portfolio</h2>
-<!-- Flash messages -->
+<!-- Flash messages for resume upload and profile update -->
        {% with messages = get_flashed_messages() %}
        {% if messages %}
 <ul class="flash-messages">
@@ -20,27 +18,43 @@
 </ul>
        {% endif %}
        {% endwith %}
+
+<h1>Welcome, {{ user_info.get('name', '') }}!</h1>
+<h2>Your Portfolio</h2>
+<!-- Profile Update Form -->
 <form method="POST" action="{{ url_for('user.update_profile') }}">
 <label for="name">Name:</label>
 <input type="text" id="name" name="name" value="{{ user_info.get('name', '') }}" required>
 <label for="email">Email:</label>
 <input type="email" id="email" name="email" value="{{ user_info.get('email', '') }}" required>
+<label for="location">Location:</label>
+<input type="text" id="location" name="location" value="{{ user_info.get('location', '') }}" required>
+<label for="experience">Overall Experience (in years):</label>
+<input type="number" id="experience" name="experience" value="{{ user_info.get('experience', '') }}" required>
+<label for="relocate">Willing to Relocate:</label>
+<select id="relocate" name="relocate" required>
+<option value="Yes" {% if user_info.get('relocate', '') == 'Yes' %}selected{% endif %}>Yes</option>
+<option value="No" {% if user_info.get('relocate', '') == 'No' %}selected{% endif %}>No</option>
+</select>
 <label for="skills">Skills:</label>
-<input type="text" id="skills" name="skills" value="{{ user_info.get('skills', '') }}" required>
+<input type="text" id="skills" name="skills" value="{{ user_info.get('skills', '') }}" required readonly>
 <button type="submit">Update Profile</button>
 </form>
-<h3>Upload Resume</h3>
+<!-- Resume Upload Form -->
 <form method="POST" action="{{ url_for('user.upload_resume') }}" enctype="multipart/form-data">
+<h3>Upload Resume</h3>
 <label for="resume">Upload Resume:</label>
 <input type="file" id="resume" name="resume" accept=".pdf, .doc, .docx, .pages, .txt, .rtf" required>
 <button type="submit">Upload</button>
 </form>
+<!-- Job Applications -->
 <h3>Job Applications</h3>
 <ul>
            {% for application in job_applications %}
 <li>{{ application.position }} at {{ application.company }} ({{ application.application_date }})</li>
            {% endfor %}
 </ul>
+<!-- Recommended Jobs -->
 <h3>Recommended Jobs</h3>
 <ul>
            {% for job in recommended_jobs %}
