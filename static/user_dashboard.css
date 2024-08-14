@@ -1,74 +1,96 @@
-body {
-   font-family: Arial, sans-serif;
-   background-color: #f4f4f4;
-   margin: 0;
+
+/* Basic styling for the dashboard container */
+.dashboard-container {
+   padding: 20px;
+}
+
+/* Flash messages styling */
+.flash-messages {
+   list-style-type: none;
    padding: 0;
 }
-.dashboard-container {
-   width: 80%;
-   max-width: 900px;
-   margin: 20px auto;
+
+.flash-messages li {
+   color: red;
+}
+
+/* Layout for the dashboard sections */
+.dashboard-sections {
+   display: flex;
+   gap: 20px;
+   flex-wrap: wrap; /* To ensure sections wrap on smaller screens */
+}
+
+/* Individual section styling */
+.section {
+   flex: 1;
    padding: 20px;
-   background-color: #fff;
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-   border-radius: 8px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   background-color: #fff; /* Added a white background for clarity */
 }
-h1, h2, h3 {
-   color: #333;
+
+/* Specific styles for each section */
+.portfolio {
+   max-width: 500px;
 }
-label {
+
+.recommended-jobs {
+   max-width: 400px;
+}
+
+.skill-based-job-search {
+   max-width: 400px;
+   background-color: #f9f9f9;
+}
+
+/* Style for form elements */
+form {
+   margin-bottom: 20px;
+}
+
+form label {
    display: block;
-   margin-top: 10px;
-   font-weight: bold;
+   margin: 10px 0 5px;
 }
-input[type="text"],
-input[type="email"],
-input[type="number"],
-select {
+
+form input[type="text"],
+form input[type="email"],
+form input[type="number"],
+form select {
    width: 100%;
    padding: 8px;
-   margin-top: 5px;
    margin-bottom: 10px;
-   border: 1px solid #ccc;
-   border-radius: 4px;
+   border: 1px solid #ddd;
+   border-radius: 5px;
    box-sizing: border-box;
 }
-button {
-   display: inline-block;
-   padding: 10px 20px;
-   background-color: #007bff;
-   color: #fff;
-   border: none;
-   border-radius: 4px;
-   cursor: pointer;
-   font-size: 16px;
-   margin-top: 10px;
+
+form input[type="file"] {
+   margin-bottom: 10px;
 }
-button:hover {
+
+form button {
+   padding: 10px 15px;
+   border: none;
+   background-color: #007bff;
+   color: white;
+   cursor: pointer;
+   border-radius: 5px;
+}
+
+form button:hover {
    background-color: #0056b3;
 }
-.flash-messages {
-   background-color: #dff0d8;
-   border-left: 6px solid #3c763d;
-   padding: 10px;
-   margin-bottom: 20px;
-   list-style-type: none;
-   color: #3c763d;
-}
-.flash-messages li {
-   margin: 0;
-}
-ul {
-   list-style-type: none;
-   padding: 0;
-}
+
+/* Sign out link styling */
 .sign-out-link {
    display: block;
    margin-top: 20px;
-   text-align: right;
    color: #007bff;
    text-decoration: none;
 }
+
 .sign-out-link:hover {
    text-decoration: underline;
 }

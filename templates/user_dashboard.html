@@ -1,67 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='user_dashboard.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_dashboard.css') }}">
 </head>
 <body>
 <div class="dashboard-container">
-<!-- Flash messages for resume upload and profile update -->
-       {% with messages = get_flashed_messages() %}
-       {% if messages %}
-<ul class="flash-messages">
-           {% for message in messages %}
-<li>{{ message }}</li>
-           {% endfor %}
-</ul>
-       {% endif %}
-       {% endwith %}
+    <h1>Welcome, {{ user_info.get('name', '') }}!</h1>
 
-<h1>Welcome, {{ user_info.get('name', '') }}!</h1>
-<h2>Your Portfolio</h2>
-<!-- Profile Update Form -->
-<form method="POST" action="{{ url_for('user.update_profile') }}">
-<label for="name">Name:</label>
-<input type="text" id="name" name="name" value="{{ user_info.get('name', '') }}" required>
-<label for="email">Email:</label>
-<input type="email" id="email" name="email" value="{{ user_info.get('email', '') }}" required>
-<label for="location">Location:</label>
-<input type="text" id="location" name="location" value="{{ user_info.get('location', '') }}" required>
-<label for="experience">Overall Experience (in years):</label>
-<input type="number" id="experience" name="experience" value="{{ user_info.get('experience', '') }}" required>
-<label for="relocate">Willing to Relocate:</label>
-<select id="relocate" name="relocate" required>
-<option value="Yes" {% if user_info.get('relocate', '') == 'Yes' %}selected{% endif %}>Yes</option>
-<option value="No" {% if user_info.get('relocate', '') == 'No' %}selected{% endif %}>No</option>
-</select>
-<label for="skills">Skills:</label>
-<input type="text" id="skills" name="skills" value="{{ user_info.get('skills', '') }}" required readonly>
-<button type="submit">Update Profile</button>
-</form>
-<!-- Resume Upload Form -->
-<form method="POST" action="{{ url_for('user.upload_resume') }}" enctype="multipart/form-data">
-<h3>Upload Resume</h3>
-<label for="resume">Upload Resume:</label>
-<input type="file" id="resume" name="resume" accept=".pdf, .doc, .docx, .pages, .txt, .rtf" required>
-<button type="submit">Upload</button>
-</form>
-<!-- Job Applications -->
-<h3>Job Applications</h3>
-<ul>
-           {% for application in job_applications %}
-<li>{{ application.position }} at {{ application.company }} ({{ application.application_date }})</li>
-           {% endfor %}
-</ul>
-<!-- Recommended Jobs -->
-<h3>Recommended Jobs</h3>
-<ul>
-           {% for job in recommended_jobs %}
-<li>{{ job.position }} at {{ job.company }}</li>
-           {% endfor %}
-</ul>
-<a href="{{ url_for('auth.sign_out') }}" class="sign-out-link">Sign Out</a>
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Dashboard Sections -->
+    <div class="dashboard-sections">
+        <!-- Upload Resume Form -->
+        <div class="section upload-resume">
+            <h2>Upload Resume</h2>
+            <form method="POST" action="{{ url_for('user.upload_resume') }}" enctype="multipart/form-data">
+                <label for="resume">Resume:</label>
+                <input type="file" id="resume" name="resume" accept=".pdf, .doc, .docx, .pages, .txt, .rtf" required>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+
+        <!-- Portfolio Section -->
+        <div class="section portfolio">
+            <h2>Your Portfolio</h2>
+            <form method="POST" action="{{ url_for('user.update_profile') }}">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="{{ user_info.get('name', '') }}" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ user_info.get('email', '') }}" required>
+
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" value="{{ user_info.get('location', '') }}" required>
+
+                <label for="experience">Overall Experience (in years):</label>
+                <input type="number" id="experience" name="experience" value="{{ user_info.get('experience', '') }}" required>
+
+                <label for="relocate">Willing to Relocate:</label>
+                <select id="relocate" name="relocate" required>
+                    <option value="Yes" {% if user_info.get('relocate', '') == 'Yes' %}selected{% endif %}>Yes</option>
+                    <option value="No" {% if user_info.get('relocate', '') == 'No' %}selected{% endif %}>No</option>
+                </select>
+
+                <label for="skills">Skills:</label>
+                <input type="text" id="skills" name="skills" value="{{ user_info.get('skills', '') }}" required>
+
+                <!-- New Fields -->
+                <label for="last_position">Last Position (Role):</label>
+                <input type="text" id="last_position" name="last_position" value="{{ user_info.get('last_position', '') }}" required>
+
+                <label for="education">Highest Educational Qualification:</label>
+                <input type="text" id="education" name="education" value="{{ user_info.get('education', '') }}" required>
+
+                <label for="achievements">Relevant Achievements:</label>
+                <input type="text" id="achievements" name="achievements" value="{{ user_info.get('achievements', '') }}" required>
+
+                <button type="submit">Update Profile</button>
+            </form>
+        </div>
+
+        <!-- Recommended Jobs Section -->
+        <div class="section recommended-jobs">
+            <h2>Recommended Jobs</h2>
+            <ul>
+                {% for job in recommended_jobs %}
+                    <li>{{ job.position }} at {{ job.company }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Skill-based Job Search Section -->
+        <div class="section skill-based-job-search">
+            <h2>Skill-based Job Search</h2>
+            <!-- Content for this section can be added later -->
+        </div>
+    </div>
+
+    <a href="{{ url_for('auth.sign_out') }}" class="sign-out-link">Sign Out</a>
 </div>
 </body>
 </html>
