@@ -68,6 +68,9 @@
                 <label for="achievements">Relevant Achievements:</label>
                 <input type="text" id="achievements" name="achievements" value="{{ user_info.get('achievements', '') }}" required>
 
+                <label for="certifications">Certifications:</label>
+                <input type="text" id="certifications" name="certifications" value="{{ user_info.get('certifications', '') }}" required>
+
                 <button type="submit">Update Profile</button>
             </form>
         </div>

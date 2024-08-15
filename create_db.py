@@ -12,6 +12,9 @@ def init_db():
     with sqlite3.connect(DATABASE) as conn:
         cursor = conn.cursor()
         
+        # Drop the old table
+        # cursor.execute('DROP TABLE IF EXISTS users;')
+        
         # Create users table if it doesn't exist
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS users (
@@ -21,7 +24,13 @@ def init_db():
                 name TEXT NOT NULL,
                 email TEXT NOT NULL,
                 skills Text,
-                is_admin INTEGER DEFAULT 0
+                last_position TEXT,
+                education TEXT,
+                achievements TEXT,
+                certifications TEXT,
+                location TEXT,
+                experience TEXT,
+                is_admin BOOLEAN NOT NULL DEFAULT 0
             );
         ''')
         
@@ -71,22 +80,35 @@ def create_user_applications_table():
         conn.commit()
 
 def update_db():
+    drop_tables()
     with sqlite3.connect(DATABASE) as conn:
         cursor = conn.cursor()
         
-        # Update the userr table
+        # Update the user table
         # Check if columns already exist to avoid re-adding them
         cursor.execute("PRAGMA table_info(users);")
         columns = [info[1] for info in cursor.fetchall()]
         
         if 'name' not in columns:
-            cursor.execute('ALTER TABLE users ADD COLUMN name TEXT NOT NULL DEFAULT ""')
+            cursor.execute('ALTER TABLE users ADD COLUMN is_admin BOOLEAN NOT NULL DEFAULT 0 ""')
         if 'email' not in columns:
             cursor.execute('ALTER TABLE users ADD COLUMN email TEXT NOT NULL DEFAULT ""')
         if 'skills' not in columns:
             cursor.execute('ALTER TABLE users ADD COLUMN skills TEXT NOT NULL DEFAULT ""')
         if 'is_admin' not in columns:
             cursor.execute('ALTER TABLE users ADD COLUMN is_admin INTEGER DEFAULT 0')
+        if 'last_position' not in columns:
+            cursor.execute('ALTER TABLE users ADD COLUMN last_position TEXT NOT NULL DEFAULT ""')
+        if 'education' not in columns:
+            cursor.execute('ALTER TABLE users ADD COLUMN education TEXT NOT NULL DEFAULT ""')
+        if 'achievements' not in columns:
+            cursor.execute('ALTER TABLE users ADD COLUMN achievements TEXT ""')
+        if 'certifications' not in columns:
+            cursor.execute('ALTER TABLE users ADD COLUMN certifications TEXT ""')
+        if 'location' not in columns:
+            cursor.execute('ALTER TABLE users ADD COLUMN location TEXT NOT NULL DEFAULT ""')
+        if 'experience' not in columns:
+            cursor.execute('ALTER TABLE users ADD COLUMN experience TEXT NOT NULL DEFAULT ""')
         
         # Update the 'job_application' table
         cursor.execute("PRAGMA table_info(job_applications);")
@@ -146,7 +168,7 @@ def drop_tables():
     with sqlite3.connect(DATABASE) as conn:
         cursor = conn.cursor()
         cursor.execute('DROP TABLE IF EXISTS users;')
-        cursor.execute('DROP TABLE IF EXISTS job_applications;')  # Drop other tables as needed
+        cursor.execute('DROP TABLE IF EXISTS job_applications;')
         conn.commit()
     print("Tables dropped.")
 
