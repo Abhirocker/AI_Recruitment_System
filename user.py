@@ -2,7 +2,7 @@ import os
 from flask import Blueprint, render_template, redirect, url_for, session, request, flash, current_app
 from create_db import get_db
 from ai_module import generate_recommendations
-import PyPDF2
+import re
 from werkzeug.utils import secure_filename
 from text_extraction import extract_text_from_file, extract_details_from_resume
 
@@ -126,3 +126,52 @@ def upload_resume():
     
     flash('Invalid file type')
     return redirect(url_for('user.user_dashboard'))
+
+@user_blueprint.route('/manual_search', methods=['GET'])
+def manual_search():
+    if 'username' not in session:
+        return redirect(url_for('auth.sign_in'))
+    
+    search_query = request.args.get('query', '').strip()
+    db = get_db()
+    
+    if search_query:
+        # Search jobs based on the position/title
+        jobs = db.execute('''
+            SELECT id, position, company, location, experience_range, description, posted_date
+            FROM job_applications
+            WHERE LOWER(position) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)
+        ''', (f'%{search_query.lower()}%', f'%{search_query.lower()}%')).fetchall()
+        
+        # Convert results to dictionaries
+        jobs = [dict(job) for job in jobs]
+        # Filter results in Python
+        search_query_words = re.compile(r'\b' + re.escape(search_query.lower()) + r'\b', re.IGNORECASE)
+        jobs = [job for job in jobs if search_query_words.search(job['position']) or search_query_words.search(job['description'])]
+        
+    else:
+        jobs = []
+    
+    # Fetch user info for display
+    user_info = db.execute('SELECT name, email, location, experience, skills, last_position, education, achievements, certifications FROM users WHERE username = ?', (session['username'],)).fetchone()
+    if user_info:
+        user_info = dict(user_info)
+    else:
+        user_info = {}
+    
+    return render_template('user_dashboard.html', jobs=jobs, user_info=user_info)
+
+@user_blueprint.route('/view_job_description/<int:job_id>')
+def view_job_description(job_id):
+    db = get_db()
+    job = db.execute('''
+        SELECT id, position, company, location, experience_range, description, posted_date
+        FROM job_applications
+        WHERE id = ?
+    ''', (job_id,)).fetchone()
+    
+    if job:
+        job = dict(job)
+        return render_template('view_job.html', job=job)
+    else:
+        return "Job not found", 404

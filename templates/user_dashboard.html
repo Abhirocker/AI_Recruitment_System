@@ -75,37 +75,37 @@
             </form>
         </div>
 
-         <!-- Manual Job Search Section -->
-         <div class="section manual-job-search">
-            <h2>Manual Job Search</h2>
-            <label for="skill-dropdown">Filter Jobs by Skill:</label>
-            <select id="skill-dropdown" name="skill-dropdown">
-                <option value="Python">Python</option>
-                <option value="Java">Java</option>
-                <option value="JavaScript">JavaScript</option>
-                <option value="C++">C++</option>
-                <option value="SQL">SQL</option>
-                <option value="HTML">HTML</option>
-                <option value="CSS">CSS</option>
-                <option value="Machine Learning">Machine Learning</option>
-                <option value="AI">AI</option>
-                <option value="Data Science">Data Science</option>
-                <option value="Deep Learning">Deep Learning</option>
-                <option value="NLP">NLP</option>
-                <option value="Project Management">Project Management</option>
-                <option value="Agile">Agile</option>
-                <option value="Scrum">Scrum</option>
-                <option value="Git">Git</option>
-                <option value="Docker">Docker</option>
-                <option value="AWS">AWS</option>
-            </select>
-            <button id="search-button">Search</button>
-        </div>
-
         <!-- Skill-based Job Search Section -->
         <div class="section skill-based-job-search">
             <h2>Skill-based Job Search</h2>
             <!-- Content for this section can be added later -->
+        </div>
+
+        <!-- Manual Search Section -->
+        <div class="manual-search">
+            <h2>Manual Search</h2>
+            <form method="GET" action="{{ url_for('user.manual_search') }}">
+                <input type="text" name="query" placeholder="Search by job position/title" />
+                <button type="submit">Search</button>
+            </form>
+
+            {% if jobs %}
+                <div class="job-applications">
+                    {% for job in jobs %}
+                        <div class="job-box">
+                            <h2>{{ job['position'] }}</h2>
+                            <p><strong>Company:</strong> {{ job['company'] }}</p>
+                            <p><strong>Location:</strong> {{ job['location'] }}</p>
+                            <p><strong>Experience Required:</strong> {{ job['experience_range'] }}</p>
+                            <p><strong>Posted on:</strong> {{ job['posted_date'] }}</p>
+                            <p><strong>Job ID:</strong> {{ job['id'] }}</p>
+                            <a href="{{ url_for('user.view_job_description', job_id=job['id']) }}" class="apply-btn">Apply</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No jobs found.</p>
+            {% endif %}
         </div>
     </div>
 
