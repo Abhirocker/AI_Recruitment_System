@@ -4,28 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Job Applications</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='view_job.css') }}">
 </head>
 <body>
-    <h1>Job Applications for {{ job.position }} at {{ job.company }}</h1>
-    <p>{{ job.description }}</p>
-    
-    <h2>Applications</h2>
-    
-    <table>
-        <tr>
-            <th>Username</th>
-            <th>Application Date</th>
-            <th>Resume</th>
-        </tr>
-        {% for application in applications %}
-            <tr>
-                <td>{{ application.username }}</td>
-                <td><a href="{{ application.resume }}">View Resume</a></td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="container">
+        <h1>Job Applications for {{ job.position }} at {{ job.company }}</h1>
+        
+        <div class="description-container">
+            <h2>Job Description</h2>
+            <div class="description-text">
+                {{ job.description|safe }}
+            </div>
+        </div>
+        
+        <h2>Applications</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Application Date</th>
+                    <th>Resume</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in applications %}
+                    <tr>
+                        <td>{{ application.username }}</td>
+                        <td>{{ application.application_date }}</td>
+                        <td><a href="{{ application.resume }}" target="_blank">View Resume</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ url_for('admin.dashboard') }}">Back to Dashboard</a>
+        <a href="{{ url_for('admin.dashboard') }}" class="back-link">Back to Dashboard</a>
+    </div>
 </body>
 </html>
