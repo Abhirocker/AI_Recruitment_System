@@ -4,37 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Job Application</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='edit_job.css') }}">
 </head>
 <body>
-    <h1>Edit Job Application</h1>
-    <form method="POST">
-        <label for="position">Position:</label>
-        <input type="text" id="position" name="position" value="{{ job.position }}" required>
-        
-        <label for="company">Company:</label>
-        <input type="text" id="company" name="company" value="{{ job.company }}" required>
+    <div class="container">
+        <h1>Edit Job Application</h1>
+        <form method="POST">
+            <label for="position">Position:</label>
+            <input type="text" id="position" name="position" value="{{ job.position }}" required>
+            
+            <label for="company">Company:</label>
+            <input type="text" id="company" name="company" value="{{ job.company }}" required>
 
-        <label for="location">Location</label>
-        <input type="text" id="location" name="location" value="{{ job['location'] }}">
- 
-        <label for="experience_range">Experience required:</label>
-        <select id="experience_range" name="experience_range" required>
-            <option value="0-3 years" {% if job.experience_range == '0-3 years' %}selected{% endif %}>0-3 years</option>
-            <option value="4-8 years" {% if job.experience_range == '4-8 years' %}selected{% endif %}>4-8 years</option>
-            <option value="9-15 years" {% if job.experience_range == '9-15 years' %}selected{% endif %}>9-15 years</option>
-            <option value="15+ years" {% if job.experience_range == '15+ years' %}selected{% endif %}>15+ years</option>
-        </select>
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" value="{{ job.location }}">
 
-        <label for="description">Job Description:</label>
-        <textarea id="description" name="description" required>{{ job.description }}</textarea>
-        
-        <label for="posted_date">Posted Date:</label>
-        <input type="datetime-local" id="posted_date" name="posted_date" value="{{ job.posted_date }}" required>
+            <label for="experience_range">Experience required:</label>
+            <select id="experience_range" name="experience_range" required>
+                <option value="0-3 years" {% if job.experience_range == '0-3 years' %}selected{% endif %}>0-3 years</option>
+                <option value="4-8 years" {% if job.experience_range == '4-8 years' %}selected{% endif %}>4-8 years</option>
+                <option value="9-15 years" {% if job.experience_range == '9-15 years' %}selected{% endif %}>9-15 years</option>
+                <option value="15+ years" {% if job.experience_range == '15+ years' %}selected{% endif %}>15+ years</option>
+            </select>
 
-        <button type="submit">Update Job</button>
-    </form>
+            <label for="description">Job Description:</label>
+            <textarea id="description" name="description" class="expanded-textarea" required oninput="adjustTextareaHeight(this)">{{ job.description }}</textarea>
 
-    <a href="{{ url_for('admin.dashboard') }}">Back to Dashboard</a>
+            <label for="posted_date">Posted Date:</label>
+            <input type="datetime-local" id="posted_date" name="posted_date" value="{{ job.posted_date }}" required>
+
+            <button type="submit">Update Job</button>
+        </form>
+
+        <a href="{{ url_for('admin.dashboard') }}" class="back-link">Back to Dashboard</a>
+    </div>
+
+    <script>
+        function adjustTextareaHeight(textarea) {
+            textarea.style.height = 'auto'; // Reset height to auto to shrink if necessary
+            textarea.style.height = textarea.scrollHeight + 'px'; // Set height to scrollHeight to expand
+        }
+    </script>
 </body>
 </html>
