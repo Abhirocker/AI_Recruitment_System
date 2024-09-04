@@ -47,6 +47,18 @@ def init_db():
             );
         ''')
         
+        # Create a table for storing selected candidates
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS selected_candidates (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                employee_id TEXT NOT NULL UNIQUE,
+                job_title TEXT NOT NULL,
+                date_of_joining TEXT NOT NULL,
+                position TEXT NOT NULL
+            )
+        ''')
+        
         # Fetch user_application table
         create_user_applications_table()
 

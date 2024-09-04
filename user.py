@@ -323,6 +323,10 @@ def view_job_description(job_id):
         JOIN users u ON ua.user_id = u.id
         WHERE ua.job_id = ?
     ''', (job_id,)).fetchall()
+    
+    # Print fetched data for debugging
+    for application in applications:
+        print(f"Fetched application: {dict(application)}")
 
     applications = [dict(application) for application in applications]
 

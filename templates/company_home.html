@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='company_home.css') }}">
+</head>
+<body>
+    <h1>Employee List</h1>
+
+    <form method="POST" action="{{ url_for('admin.update_candidate_position') }}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Candidate Name</th>
+                    <th>Employee ID</th>
+                    <th>Professional Role</th>
+                    <th>Date of Joining</th>
+                    <th>Position</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for candidate in candidates %}
+                <tr>
+                    <td>{{ candidate.name }}</td>
+                    <td>{{ candidate.employee_id }}</td>
+                    <td>{{ candidate.job_title }}</td>
+                    <td>{{ candidate.date_of_joining }}</td>
+                    <td>
+                        <input type="text" name="position_{{ candidate.employee_id }}" value="{{ candidate.position }}">
+                    </td>
+                    <td>
+                        <form method="POST" action="{{ url_for('admin.delete_candidate', employee_id=candidate.employee_id) }}">
+                            <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this candidate?');">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="centered">
+            <input type="submit" value="Update Positions">
+        </div>
+    </form>
+</body>
+</html>

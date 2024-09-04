@@ -7,95 +7,91 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='interview_evaluation.css') }}">
 </head>
 <body>
-    <h1>Interview Evaluation for {{ application.username }}</h1>
+    <h1>Interview Evaluation for {{ application.name }}</h1>
 
-    <h2>Technical Interview Round</h2>
-    <form action="{{ url_for('admin.hr_evaluation', username=application.username) }}" method="POST">
+    <h2>    Technical Evaluation</h2>
+
+    <form method="POST" action="{{ url_for('admin.interview_evaluation', username=application.username) }}">
         <table>
-            <thead>
+            <thread>
                 <tr>
                     <th>Username</th>
-                    <th>Resume</th>
                     <th>Similarity Score</th>
+                    <th>Resume</th>
                     <th>Mark 1</th>
                     <th>Mark 2</th>
                     <th>Mark 3</th>
                     <th>Mark 4</th>
                     <th>Mark 5</th>
-                    <th>Total</th>
-                    <th>HR Evaluation</th>
                 </tr>
-            </thead>
+            </thread>
             <tbody>
                 <tr>
                     <td>{{ application.username }}</td>
+                    <td>{{ application.similarity_score | round(3) }}</td>
                     <td><a href="{{ url_for('static', filename=application.resume) }}" target="_blank">View Resume</a></td>
-                    <td>{{ application.similarity_score | round(2) }}</td>
-                    <td><input type="number" name="mark1" min="0" max="10" required></td>
-                    <td><input type="number" name="mark2" min="0" max="10" required></td>
-                    <td><input type="number" name="mark3" min="0" max="10" required></td>
-                    <td><input type="number" name="mark4" min="0" max="10" required></td>
-                    <td><input type="number" name="mark5" min="0" max="10" required></td>
-                    <td><span id="total_marks"></span></td>
-                    <td><button type="submit">Evaluate HR</button></td>
+                    <td><input type="number" name="mark1" value="0" min="0" max="10"></td>
+                    <td><input type="number" name="mark2" value="0" min="0" max="10"></td>
+                    <td><input type="number" name="mark3" value="0" min="0" max="10"></td>
+                    <td><input type="number" name="mark4" value="0" min="0" max="10"></td>
+                    <td><input type="number" name="mark5" value="0" min="0" max="10"></td>
                 </tr>
             </tbody>
         </table>
+        <div class="centered">
+            <input type="submit" value="Submit Technical Evaluation">
+        </div>
     </form>
 
-    <h2>HR Interview Round</h2>
-    <form action="{{ url_for('admin.final_evaluation', username=application.username) }}" method="POST">
+    {% if application.tech_total is not none %}
+        <h3>    Technical Round Total: {{ application.tech_total }}</h3>
+    {% endif %}
+
+    <h2>    HR Evaluation</h2>
+    <form method="POST" action="{{ url_for('admin.hr_evaluation', username=application.username) }}">
+        <input type="hidden" name="tech_total" value="{{ application.tech_total }}">
         <table>
-            <thead>
+            <thread>
                 <tr>
                     <th>Username</th>
-                    <th>Resume</th>
                     <th>Similarity Score</th>
-                    <th>Technical Total Score</th>
-                    <th>Mark 1</th>
-                    <th>Mark 2</th>
-                    <th>Mark 3</th>
-                    <th>Mark 4</th>
-                    <th>Total</th>
-                    <th>Final Evaluation</th>
+                    <th>Resume</th>
+                    <th>HR Mark 1</th>
+                    <th>HR Mark 2</th>
+                    <th>HR Mark 3</th>
+                    <th>HR Mark 4</th>
                 </tr>
-            </thead>
+            </thread>
             <tbody>
                 <tr>
                     <td>{{ application.username }}</td>
+                    <td>{{ application.similarity_score | round(3) }}</td>
                     <td><a href="{{ url_for('static', filename=application.resume) }}" target="_blank">View Resume</a></td>
-                    <td>{{ application.similarity_score | round(2) }}</td>
-                    <td><input type="text" name="tech_total" readonly></td>
-                    <td><input type="number" name="hr_mark1" min="0" max="10" required></td>
-                    <td><input type="number" name="hr_mark2" min="0" max="10" required></td>
-                    <td><input type="number" name="hr_mark3" min="0" max="10" required></td>
-                    <td><input type="number" name="hr_mark4" min="0" max="10" required></td>
-                    <td><span id="hr_total_marks"></span></td>
-                    <td><button type="submit">Final Evaluate</button></td>
+                    <td><input type="number" name="hr_mark1" value="0" min="0" max="10"></td>
+                    <td><input type="number" name="hr_mark2" value="0" min="0" max="10"></td>
+                    <td><input type="number" name="hr_mark3" value="0" min="0" max="10"></td>
+                    <td><input type="number" name="hr_mark4" value="0" min="0" max="10"></td>
                 </tr>
             </tbody>
         </table>
+        <div class="centered">
+            <input type="submit" value="Submit HR Evaluation">
+        </div>
     </form>
 
-    <script>
-        // Calculate and display the total marks for Technical and HR rounds
-        document.querySelectorAll('input[type="number"]').forEach(input => {
-            input.addEventListener('input', () => {
-                let techTotal = 0;
-                let hrTotal = 0;
-                
-                document.querySelectorAll('input[name^="mark"]').forEach(markInput => {
-                    techTotal += parseFloat(markInput.value) || 0;
-                });
+    {% if application.final_total is not none %}
+        <h3>    Final Round Total: {{ application.final_total }}</h3>
+    {% endif %}
 
-                document.querySelectorAll('input[name^="hr_mark"]').forEach(markInput => {
-                    hrTotal += parseFloat(markInput.value) || 0;
-                });
-
-                document.getElementById('total_marks').textContent = techTotal;
-                document.getElementById('hr_total_marks').textContent = hrTotal;
-            });
-        });
-    </script>
+    <!-- Buttons to Reject or Select Candidate -->
+    <div class="centered">
+        <form action="{{ url_for('admin.reject_candidate', username=application.username) }}" method="POST" style="display: inline;">
+            <input type="submit" value="Reject Candidate" style="background-color: rgb(195, 32, 32); color: white; border: none; padding: 10px 20px; cursor: pointer;">
+        </form>
+        <form action="{{ url_for('admin.select_candidate', username=application.username) }}" method="POST" style="display: inline;">
+            <input type="submit" value="Select Candidate" style="background-color: rgb(28, 113, 28); color: white; border: none; padding: 10px 20px; cursor: pointer;">
+        </form>
+        </form>
+    </div>
 </body>
 </html>

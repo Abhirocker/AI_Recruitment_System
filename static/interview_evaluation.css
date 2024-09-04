@@ -1,5 +1,5 @@
 /* General Styles */
-body {
+/* body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     margin: 0;
@@ -21,10 +21,10 @@ h2 {
     margin-top: 1.5rem;
     border-bottom: 2px solid #105fb2;
     padding-bottom: 0.5rem;
-}
+} */
 
 /* Form Styles */
-form {
+/* form {
     max-width: 1200px;
     margin: 0 auto;
     padding: 1rem;
@@ -69,10 +69,10 @@ input[type="number"], input[type="text"] {
 input[type="number"]:focus, input[type="text"]:focus {
     border-color: #105fb2;
     outline: none;
-}
+} */
 
 /* Button Styles */
-button {
+/* button {
     background-color: #105fb2;
     border: none;
     color: #fff;
@@ -88,10 +88,10 @@ button {
 
 button:hover {
     background-color: #105fb2;
-}
+} */
 
 /* Responsive Styles */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     form {
         padding: 1rem;
     }
@@ -108,4 +108,106 @@ button:hover {
         font-size: 0.9rem;
         padding: 0.4rem 0.8rem;
     }
+} */
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1, h2, h3 {
+    color: #105fb2;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+h2 {
+    margin-top: 40px;
+}
+
+/* Centered Container */
+.centered {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #105fb2;
+    color: white;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #e0f7fa;
+}
+
+/* Form Styles */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin: 4px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #105fb2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+input[type="submit"]:hover {
+    background-color: #105fb2;
+}
+
+/* Links */
+a {
+    color: #105fb2;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
