@@ -1,76 +1,63 @@
-/* Reset default margins and paddings */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Ensure body covers the full viewport height */
-    padding: 20px;
-}
-
-.container {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-width: 900px; /* Increase the max-width to make the container larger */
-    width: 100%;
-    margin: auto; /* Center the container horizontally */
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.description-container {
-    margin-bottom: 20px;
-}
-
-.description-container h2 {
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.description-text {
-    white-space: pre-wrap; /* Preserve whitespace and line breaks */
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    font-size: 16px;
     line-height: 1.6;
-    max-height: 300px; /* Limit height to ensure scrolling */
-    overflow-y: auto; /* Scroll if content exceeds max-height */
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-table thead th, table tbody td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-}
-
-table thead th {
+    margin: 0;
+    padding: 0;
     background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #105fb2;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 1rem;
     font-weight: bold;
 }
 
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Main Section */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.job-details, .user-info, .applications {
+    background: #fff;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    border-bottom: 2px solid #105fb2;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    margin: 0.5rem 0;
+}
+
 a {
-    color: #007bff;
+    color: #105fb2;
     text-decoration: none;
 }
 
@@ -78,14 +65,56 @@ a:hover {
     text-decoration: underline;
 }
 
-.back-link {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    color: #007bff;
-    text-decoration: none;
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
 }
 
-.back-link:hover {
-    text-decoration: underline;
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: left;
+}
+
+table th {
+    background-color: #105fb2;
+    color: #fff;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}
+
+button {
+    background-color: #105fb2;
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    margin: 0;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+button:hover {
+    background-color: #105fb2;
+}
+
+/* Footer */
+footer {
+    background-color: #105fb2;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    width: 100%;
+    bottom: 0;
 }

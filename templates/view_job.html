@@ -3,42 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Job Applications</title>
+    <title>View Job Description</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='view_job.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Job Applications for {{ job.position }} at {{ job.company }}</h1>
-        
-        <div class="description-container">
-            <h2>Job Description</h2>
-            <div class="description-text">
-                {{ job.description|safe }}
-            </div>
-        </div>
-        
-        <h2>Applications</h2>
-        
-        <table>
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Application Date</th>
-                    <th>Resume</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for application in applications %}
+    <header>
+        <h1>Job Details</h1>
+        <nav>
+            <a href="{{ url_for('user.user_dashboard') }}">Back to User Dashboard</a>
+            <a href="{{ url_for('admin.dashboard') }}">Back to Admin Dashboard</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="job-details">
+            <h2>Job Position: {{ job.position }}</h2>
+            <p><strong>Company:</strong> {{ job.company }}</p>
+            <p><strong>Location:</strong> {{ job.location }}</p>
+            <p><strong>Experience Range:</strong> {{ job.experience_range }}</p>
+            <p><strong>Posted Date:</strong> {{ job.posted_date }}</p>
+            <p><strong>Description:</strong></p>
+            <p>{{ job.description }}</p>
+        </section>
+
+        {% if user_info %}
+        <section class="user-info">
+            <h2>Your Application</h2>
+            <p><strong>Name:</strong> {{ user_info.name }}</p>
+            <p><strong>Email:</strong> {{ user_info.email }}</p>
+            <p><strong>Location:</strong> {{ user_info.location }}</p>
+            <p><strong>Experience:</strong> {{ user_info.experience }}</p>
+            <p><strong>Skills:</strong> {{ user_info.skills }}</p>
+            <p><strong>Last Position:</strong> {{ user_info.last_position }}</p>
+            <p><strong>Education:</strong> {{ user_info.education }}</p>
+            <p><strong>Achievements:</strong> {{ user_info.achievements }}</p>
+            <p><strong>Certifications:</strong> {{ user_info.certifications }}</p>
+            {% if user_info.resume %}
+            <p><strong>Resume:</strong> <a href="{{ url_for('static', filename=user_info.resume) }}" target="_blank">View Resume</a></p>
+            {% endif %}
+        </section>
+        {% endif %}
+
+        <section class="applications">
+            <h2>Other Applications for this Job</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Resume</th>
+                        <th>Similarity Score</th>
+                        <th>Interview Evaluation</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for application in applications %}
                     <tr>
                         <td>{{ application.username }}</td>
-                        <td>{{ application.application_date }}</td>
-                        <td><a href="{{ application.resume }}" target="_blank">View Resume</a></td>
+                        <td>
+                            {% if application.resume %}
+                            <a href="{{ url_for('static', filename=application.resume) }}" target="_blank">View Resume</a>
+                            {% else %}
+                            No Resume Available
+                            {% endif %}
+                        </td>
+                        <td>{{ application.similarity_score | round(3)}}</td>
+                        <td>
+                            <form action="{{ url_for('admin.interview_evaluation', username=application.username) }}" method="POST">
+                                <button type="submit">Evaluate</button>
+                            </form>
+                        </td> 
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>        
+    </main>
 
-        <a href="{{ url_for('admin.dashboard') }}" class="back-link">Back to Dashboard</a>
-    </div>
+    <footer>
+        <p>&copy; 2024 Wipro. All rights reserved.</p>
+    </footer>
 </body>
 </html>

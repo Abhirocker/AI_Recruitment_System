@@ -7,7 +7,7 @@ def get_db():
     conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
     return conn
-
+        
 def init_db():
     with sqlite3.connect(DATABASE) as conn:
         cursor = conn.cursor()
@@ -47,19 +47,20 @@ def init_db():
             );
         ''')
         
-        conn.commit()
+        # Fetch user_application table
+        create_user_applications_table()
 
-# Insert predefined admin user if it doesn't already exist
-    admin_username = 'admin'
-    admin_password = 'admin_123'  # Direct password storage
-    cursor.execute('SELECT * FROM users WHERE username = ?', (admin_username,))
-    admin_exists = cursor.fetchone()
-        
-    if not admin_exists:
-        cursor.execute('''
-        INSERT INTO users (username, password, name, email, is_admin)
-        VALUES (?, ?, ?, ?, ?)
-        ''', (admin_username, admin_password, 'Admin', 'admin@lazy.com', 1))
+        # Insert predefined admin user if it doesn't already exist
+        admin_username = 'admin'
+        admin_password = 'admin_123'  # Direct password storage
+        cursor.execute('SELECT * FROM users WHERE username = ?', (admin_username,))
+        admin_exists = cursor.fetchone()
+            
+        if not admin_exists:
+            cursor.execute('''
+            INSERT INTO users (username, password, name, email, is_admin)
+            VALUES (?, ?, ?, ?, ?)
+            ''', (admin_username, admin_password, 'Admin', 'admin@lazy.com', 1))
 
     conn.commit()
 print("Database initialized and table created.")
@@ -73,6 +74,8 @@ def create_user_applications_table():
                 user_id INTEGER NOT NULL,
                 job_id INTEGER NOT NULL,
                 resume TEXT,
+                application_date TEXT,
+                similarity_score FLOAT,
                 FOREIGN KEY (user_id) REFERENCES users(id),
                 FOREIGN KEY (job_id) REFERENCES job_applications(id)
             )
@@ -169,6 +172,7 @@ def drop_tables():
         cursor = conn.cursor()
         cursor.execute('DROP TABLE IF EXISTS users;')
         cursor.execute('DROP TABLE IF EXISTS job_applications;')
+        cursor.execute('DROP TABLE IF EXISTS user_applications;')
         conn.commit()
     print("Tables dropped.")
 
@@ -176,4 +180,4 @@ if __name__ == '__main__':
     init_db()
     update_db()
     verify_db()
-    drop_tables()
+    # drop_tables()

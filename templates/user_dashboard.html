@@ -75,10 +75,32 @@
             </form>
         </div>
 
-        <!-- Skill-based Job Search Section -->
-        <div class="section skill-based-job-search">
-            <h2>Skill-based Job Search</h2>
-            <!-- Content for this section can be added later -->
+        <!-- Prediction based Job Search Section -->
+        <div class="predicted-job-match">
+            <h2>Predicted Job Match</h2>
+            <form method="GET" action="{{ url_for('user.predicted_job_match') }}">
+                <button type="submit">Show Matches</button>
+            </form>
+        
+            {% if predicted_jobs %}
+                <div class="job-applications">
+                    {% for job in predicted_jobs %}
+                        <div class="job-box">
+                            <h2>{{ job['position'] }}</h2>
+                            <p><strong>Company:</strong> {{ job['company'] }}</p>
+                            <p><strong>Location:</strong> {{ job['location'] }}</p>
+                            <p><strong>Experience Required:</strong> {{ job['experience_range'] }}</p>
+                            <p><strong>Posted on:</strong> {{ job['posted_date'] }}</p>
+                            <p><strong>Job ID:</strong> {{ job['id'] }}</p>
+                            <form action="{{ url_for('user.apply', job_id=job.id) }}" method="post" enctype="multipart/form-data">
+                                <button type="submit" class="apply-btn">Apply</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No matching jobs found based on your resume.</p>
+            {% endif %}
         </div>
 
         <!-- Manual Search Section -->
@@ -89,9 +111,9 @@
                 <button type="submit">Search</button>
             </form>
 
-            {% if jobs %}
+            {% if manual_jobs %}
                 <div class="job-applications">
-                    {% for job in jobs %}
+                    {% for job in manual_jobs %}
                         <div class="job-box">
                             <h2>{{ job['position'] }}</h2>
                             <p><strong>Company:</strong> {{ job['company'] }}</p>
@@ -99,7 +121,9 @@
                             <p><strong>Experience Required:</strong> {{ job['experience_range'] }}</p>
                             <p><strong>Posted on:</strong> {{ job['posted_date'] }}</p>
                             <p><strong>Job ID:</strong> {{ job['id'] }}</p>
-                            <a href="{{ url_for('user.view_job_description', job_id=job['id']) }}" class="apply-btn">Apply</a>
+                            <form action="{{ url_for('user.apply', job_id=job.id) }}" method="post" enctype="multipart/form-data">
+                                <button type="submit" class="apply-btn">Apply</button>
+                            </form>
                         </div>
                     {% endfor %}
                 </div>

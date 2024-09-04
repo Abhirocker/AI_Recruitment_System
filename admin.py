@@ -57,7 +57,7 @@ def view_job(job_id):
         return redirect(url_for('admin.dashboard'))
     
     applications = db.execute('''
-        SELECT u.username, ua.resume
+        SELECT u.username, ua.resume, ua.similarity_score
         FROM user_applications ua
         JOIN users u ON ua.user_id = u.id
         WHERE ua.job_id = ?
@@ -105,3 +105,45 @@ def delete_job(job_id):
     
     flash('Job application deleted successfully.')
     return redirect(url_for('admin.dashboard'))
+
+@admin_blueprint.route('/interview_evaluation/<string:username>', methods=['POST'])
+def interview_evaluation(username):
+    db = get_db()
+
+    # Fetch the user application and job details
+    application = db.execute('''
+        SELECT u.username, ua.resume, ua.similarity_score
+        FROM user_applications ua
+        JOIN users u ON ua.user_id = u.id
+        WHERE u.username = ?
+    ''', (username,)).fetchone()
+
+    if not application:
+        return "Application not found", 404
+
+    application = dict(application)
+
+    # Render the interview evaluation page
+    return render_template('interview_evaluation.html', application=application)
+
+@admin_blueprint.route('/hr_evaluation/<string:username>', methods=['POST'])
+def hr_evaluation(username):
+    # Fetch the form data for technical evaluation
+    tech_total = sum([
+        int(request.form.get('mark1', 0)),
+        int(request.form.get('mark2', 0)),
+        int(request.form.get('mark3', 0)),
+        int(request.form.get('mark4', 0)),
+        int(request.form.get('mark5', 0))
+    ])
+
+    # Pass the data to HR evaluation template
+    return render_template('interview_evaluation.html', application={
+        'username': username,
+        'tech_total': tech_total,
+    })
+
+@admin_blueprint.route('/final_evaluation/<string:username>', methods=['POST'])
+def final_evaluation(username):
+    # Process final evaluation here
+    return redirect(url_for('some_other_page'))
