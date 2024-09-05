@@ -196,7 +196,8 @@ def hr_evaluation(username):
             request.form.get('hr_mark1', '0'),
             request.form.get('hr_mark2', '0'),
             request.form.get('hr_mark3', '0'),
-            request.form.get('hr_mark4', '0')
+            request.form.get('hr_mark4', '0'),
+            request.form.get('hr_mark5', '0')
         ]
 
         try:
@@ -318,6 +319,7 @@ def update_candidate_position():
     db.commit()
     db.close()
 
+    flash('Position updated successfully!')
     return redirect(url_for('admin.company_home'))
 
 @admin_blueprint.route('/delete_candidate/<int:employee_id>', methods=['POST'])
@@ -329,4 +331,5 @@ def delete_candidate(employee_id):
     db.commit()
     db.close()
     
+    flash('Employee details deleted successfully!')
     return redirect(url_for('admin.company_home'))

@@ -56,10 +56,11 @@
                     <th>Username</th>
                     <th>Similarity Score</th>
                     <th>Resume</th>
-                    <th>HR Mark 1</th>
-                    <th>HR Mark 2</th>
-                    <th>HR Mark 3</th>
-                    <th>HR Mark 4</th>
+                    <th>H Mark 1</th>
+                    <th>H Mark 2</th>
+                    <th>H Mark 3</th>
+                    <th>H Mark 4</th>
+                    <th>H Mark 5</th>
                 </tr>
             </thread>
             <tbody>
@@ -71,6 +72,7 @@
                     <td><input type="number" name="hr_mark2" value="0" min="0" max="10"></td>
                     <td><input type="number" name="hr_mark3" value="0" min="0" max="10"></td>
                     <td><input type="number" name="hr_mark4" value="0" min="0" max="10"></td>
+                    <td><input type="number" name="hr_mark5" value="0" min="0" max="10"></td>
                 </tr>
             </tbody>
         </table>
@@ -89,7 +91,7 @@
             <input type="submit" value="Reject Candidate" style="background-color: rgb(195, 32, 32); color: white; border: none; padding: 10px 20px; cursor: pointer;">
         </form>
         <form action="{{ url_for('admin.select_candidate', username=application.username) }}" method="POST" style="display: inline;">
-            <input type="submit" value="Select Candidate" style="background-color: rgb(28, 113, 28); color: white; border: none; padding: 10px 20px; cursor: pointer;">
+            <input type="submit" value="Select Candidate" style="background-color: rgb(33, 132, 33); color: white; border: none; padding: 10px 20px; cursor: pointer;">
         </form>
         </form>
     </div>

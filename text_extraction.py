@@ -60,7 +60,7 @@ def extract_details_from_resume(text):
     
     common_education = [
         'B.Sc', 'M.Sc', 'Ph.D', 'Bachelor of Science', 'Master of Science',
-        'Doctor of Philosophy', 'MBA', 'B.A.', 'B.Com', 'B.E'
+        'Doctor of Philosophy', 'MBA', 'B.A.', 'B.Com', 'B.E', 'B.Tech'
     ]
     
     common_achievements = [

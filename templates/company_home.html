@@ -7,7 +7,24 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='company_home.css') }}">
 </head>
 <body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('animations', filename='wipro.png') }}" alt="Wipro Limited">
+        </div>
+        <h1 class='head'>Welcome To Wipro</h1>
+    </header>
     <h1>Employee List</h1>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
 
     <form method="POST" action="{{ url_for('admin.update_candidate_position') }}">
         <table>
