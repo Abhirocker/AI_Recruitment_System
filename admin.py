@@ -86,6 +86,9 @@ def delete_job(job_id):
     flash('Job application deleted successfully.')
     return redirect(url_for('admin.dashboard'))
 
+# View ---------------------------------------------------------------------------- Page
+# -------------------------------Job_Description----------------------------------------
+
 @admin_blueprint.route('/view_job/<int:job_id>')
 def view_job(job_id):
     if 'username' not in session or not session.get('is_admin'):

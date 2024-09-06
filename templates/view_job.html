@@ -47,6 +47,7 @@
         </section>
         {% endif %}
 
+        {% if applications %}
         <section class="applications">
             <h2>Other Applications for this Job</h2>
             <table>
@@ -79,7 +80,8 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </section>        
+        </section>
+        {% endif %}    
     </main>
 
     <footer>

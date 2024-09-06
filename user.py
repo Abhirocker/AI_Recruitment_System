@@ -55,6 +55,9 @@ def predict_label_from_file(filepath):
     
     return predicted_label
 
+# User ---------------------------------------------------------------------------- Page
+# -------------------------------------Dashboard--------------------------------------------
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -292,6 +295,9 @@ def apply(job_id):
             return "User not found", 404
     else:
         return "User not logged in", 403
+    
+# View ---------------------------------------------------------------------------- Page
+# -------------------------------------Description--------------------------------------------
 
 @user_blueprint.route('/view_job_description/<int:job_id>')
 def view_job_description(job_id):
@@ -316,24 +322,26 @@ def view_job_description(job_id):
     if user_info:
         user_info = dict(user_info)
 
-    # Fetch all other applications related to this job, excluding the application_date
-    applications = db.execute('''
-        SELECT u.username, ua.resume, ua.similarity_score
-        FROM user_applications ua
-        JOIN users u ON ua.user_id = u.id
-        WHERE ua.job_id = ?
-    ''', (job_id,)).fetchall()
-    
-    # Print fetched data for debugging
-    for application in applications:
-        print(f"Fetched application: {dict(application)}")
-
-    applications = [dict(application) for application in applications]
+    if session.get('is_admin'):
+        # Fetch all other applications related to this job, excluding the application_date
+        applications = db.execute('''
+            SELECT u.username, ua.resume, ua.similarity_score
+            FROM user_applications ua
+            JOIN users u ON ua.user_id = u.id
+            WHERE ua.job_id = ?
+        ''', (job_id,)).fetchall()
+        
+        # Print fetched data for debugging
+        for application in applications:
+            print(f"Fetched application: {dict(application)}")
+        applications = [dict(application) for application in applications]
+    else:
+        applications = None
 
     # Render the job details page
     if job:
         job = dict(job)
-        return render_template('view_job.html', job=job, user_info=user_info, applications=applications)
+        return render_template('view_job.html', job=job, user_info=user_info)
     else:
         return "Job not found", 404
     

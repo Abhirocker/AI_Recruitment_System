@@ -6,7 +6,7 @@ header {
     background-color: #105fb2;
     padding: 2px;
     color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 header .logo img {
@@ -17,7 +17,7 @@ header .logo img {
 }
 
 .head {
-    font-size: 2.5rem;
+    font-size: 2rem;
     text-align: center;
     flex-grow: 1;
     margin: 0;
@@ -134,5 +134,5 @@ footer {
     padding: 2px;
     width: 100%;
     bottom: 0;
-    margin-top: 10px;
+    margin-top: 20px;
 }
