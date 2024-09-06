@@ -1,3 +1,15 @@
+/* Header Styles */
+/* Logo aligned to the left */
+header .logo {
+    position: absolute;
+    left: 20px;
+}
+
+header .logo img {
+    height: 70px;
+    width: auto;
+}
+
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
@@ -11,8 +23,9 @@ body {
 header {
     background-color: #105fb2;
     color: #fff;
-    padding: 1rem 0;
+    padding: 5px;
     text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 header h1 {
@@ -114,7 +127,7 @@ footer {
     background-color: #105fb2;
     color: #fff;
     text-align: center;
-    padding: 1rem 0;
+    padding: 2px;
     width: 100%;
     bottom: 0;
 }

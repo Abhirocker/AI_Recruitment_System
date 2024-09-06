@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='admin_dashboard.css') }}">
 </head>
 <body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('animations', filename='wipro.png') }}" alt="Wipro Limited">
+        </div>
+        <h1 class='head'>Wipro Careers</h1>
+    </header>
     <h1>Welcome, Admin</h1>
 
     <!-- Flash messages -->
@@ -38,5 +44,8 @@
     </div>
 
     <a href="{{url_for('auth.sign_out')}}">Logout</a>
+    <footer>
+        <p>&copy; 2024 Wipro Limited. All rights reserved.</p>
+    </footer>
 </body>
 </html>

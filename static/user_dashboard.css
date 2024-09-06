@@ -1,23 +1,83 @@
+/* Header Styles */
+header {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   background-color: #105fb2;
+   padding: 2px;
+   color: white;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+header .logo img {
+   height: 50px;
+   width: auto;
+   margin-left: 2px;
+   margin-top: 1.5px;
+}
+
+.head {
+   font-size: 2.2rem;
+   text-align: center;
+   flex-grow: 1;
+   margin: 0;
+   color: #ffffff;
+}
+
 /* Basic styling for the dashboard container */
 .dashboard-container {
-   padding: 20px;
+   padding: 25px;
+   background-color: #f5f5f5;
+   min-height: 100vh;
+}
+
+/* Dashboard header that includes the welcome message and sign-out link */
+.dashboard-header {
+   display: flex;
+   justify-content: space-between; /* Distribute items to left and right */
+   align-items: center; /* Vertically align the items */
+   padding: 10px;
+   margin-bottom: 20px;
+}
+
+/* Welcome text styling */
+.dashboard-header h1 {
+   margin: 0;
+   font-size: 1.8rem;
+}
+
+/* Sign out link styling */
+.sign-out-link {
+   color: #007bff;
+   text-decoration: none;
+   font-size: 1rem;
+}
+
+.sign-out-link:hover {
+   text-decoration: underline;
 }
 
 /* Flash messages styling */
 .flash-messages {
    list-style-type: none;
-   padding: 0;
+   padding: 10px;
+   margin-bottom: 20px;
+   background-color: #e7f3e7;
+   border-left: 5px solid #4caf50;
+   border-radius: 5px;
 }
 
 .flash-messages li {
    color: #3c763d;
+   font-weight: bold;
 }
 
 /* Layout for the dashboard sections */
 .dashboard-sections {
    display: flex;
    gap: 20px;
-   flex-wrap: wrap; /* To ensure sections wrap on smaller screens */
+   flex-wrap: wrap;
+   justify-content: space-between;
 }
 
 /* Individual section styling */
@@ -25,25 +85,26 @@
    flex: 1;
    padding: 20px;
    border: 1px solid #ccc;
-   border-radius: 5px;
-   background-color: #fff; /* Added a white background for clarity */
+   border-radius: 10px;
+   background-color: #fff;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+   transition: box-shadow 0.3s ease;
+}
+
+.section:hover {
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Specific styles for each section */
 .portfolio {
-   max-width: 500px;
+   max-width: 450px;
 }
 
 .recommended-jobs {
-   max-width: 400px;
+   max-width: 450px;
 }
 
-.skill-based-job-search {
-   max-width: 400px;
-   background-color: #f9f9f9;
-}
-
-/* Style for form elements */
+/* Form styles */
 form {
    margin-bottom: 20px;
 }
@@ -51,6 +112,8 @@ form {
 form label {
    display: block;
    margin: 10px 0 5px;
+   font-weight: bold;
+   color: #333;
 }
 
 form input[type="text"],
@@ -58,11 +121,12 @@ form input[type="email"],
 form input[type="number"],
 form select {
    width: 100%;
-   padding: 8px;
-   margin-bottom: 10px;
-   border: 1px solid #ddd;
+   padding: 10px;
+   margin-bottom: 15px;
+   border: 1px solid #ccc;
    border-radius: 5px;
    box-sizing: border-box;
+   font-size: 1rem;
 }
 
 form input[type="file"] {
@@ -70,52 +134,50 @@ form input[type="file"] {
 }
 
 form button {
-   padding: 10px 15px;
+   padding: 10px 20px;
    border: none;
    background-color: #007bff;
    color: white;
    cursor: pointer;
    border-radius: 5px;
+   font-size: 1rem;
+   transition: background-color 0.3s ease;
 }
 
 form button:hover {
    background-color: #0056b3;
 }
 
-/* Sign out link styling */
-.sign-out-link {
-   display: block;
-   margin-top: 20px;
-   color: #007bff;
-   text-decoration: none;
-}
-
-.sign-out-link:hover {
-   text-decoration: underline;
-}
-
 /* Manual Search Section */
 .manual-search {
    padding: 20px;
+   background-color: #f9f9f9;
+   border-radius: 10px;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Search results styling */
 .search-results .job-box {
    border: 1px solid #ddd;
    padding: 15px;
    margin-bottom: 15px;
    border-radius: 5px;
    background-color: #fff;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .search-results .job-box h3 {
    margin-top: 0;
+   color: #333;
+   font-size: 1.1rem;
 }
 
 .search-results .job-box p {
    margin: 5px 0;
+   color: #555;
 }
 
-/* Manual Job Suggestion Box */
+/* Job Box Container */
 .jobs-container {
    display: flex;
    flex-wrap: wrap;
@@ -124,23 +186,24 @@ form button:hover {
 
 .job-box {
    border: 1px solid #ddd;
-   padding: 15px;
+   padding: 20px;
    margin: 10px;
-   border-radius: 5px;
+   border-radius: 10px;
    width: 250px;
-   min-height: 10px;
+   min-height: 250px;
    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
    position: relative;
-   transition: background-color 0.3s;
+   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .job-box:hover {
    transform: translateY(-5px);
+   background-color: #f0f8ff;
 }
 
-.job-box h3 {
+.job-box h2 {
    margin-top: 0;
-   font-size: 1.2em;
+   font-size: 1.3em;
    color: #0f291d;
 }
 
@@ -152,8 +215,21 @@ form button:hover {
    text-decoration: none;
    border-radius: 5px;
    margin-top: 10px;
+   font-size: 1rem;
 }
 
 .apply-btn:hover {
    background-color: #093738;
+}
+
+/* Footer */
+footer {
+   background-color: #005EB8;
+   color: white;
+   text-align: center;
+   padding: 2px;
+   bottom: 0;
+   width: 100%;
+   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+   margin-top: 20px;
 }

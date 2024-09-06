@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='interview_evaluation.css') }}">
 </head>
 <body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('animations', filename='wipro.png') }}" alt="Wipro Limited">
+        </div>
+        <h1 class='head'>Welcome To Wipro</h1>
+    </header>
     <h1>Interview Evaluation for {{ application.name }}</h1>
 
     <h2>    Technical Evaluation</h2>
@@ -87,13 +93,16 @@
 
     <!-- Buttons to Reject or Select Candidate -->
     <div class="centered">
-        <form action="{{ url_for('admin.reject_candidate', username=application.username) }}" method="POST" style="display: inline;">
+        <form action="{{ url_for('admin.reject_candidate', username=application.username) }}" method="POST" style="display: inline;  margin: 5px;">
             <input type="submit" value="Reject Candidate" style="background-color: rgb(195, 32, 32); color: white; border: none; padding: 10px 20px; cursor: pointer;">
         </form>
-        <form action="{{ url_for('admin.select_candidate', username=application.username) }}" method="POST" style="display: inline;">
+        <form action="{{ url_for('admin.select_candidate', username=application.username) }}" method="POST" style="display: inline;  margin: 5px;">
             <input type="submit" value="Select Candidate" style="background-color: rgb(33, 132, 33); color: white; border: none; padding: 10px 20px; cursor: pointer;">
         </form>
         </form>
     </div>
+    <footer>
+        <p>&copy; 2024 Wipro Limited. All rights reserved.</p>
+    </footer>
 </body>
 </html>

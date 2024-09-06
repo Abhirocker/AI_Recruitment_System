@@ -1,3 +1,11 @@
+.head {
+    font-size: 2.5rem;
+    text-align: center;
+    flex-grow: 1;
+    margin: 0;
+    color: #ffffff;
+}
+
 /* Reset default margins and paddings */
 * {
     margin: 0;
@@ -18,8 +26,8 @@ body {
 .container {
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 10px;
     max-width: 600px;
     width: 100%;
 }
@@ -27,7 +35,7 @@ body {
 h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: #0c2e53;
 }
 
 label {
@@ -79,3 +87,13 @@ button:hover {
 .back-link:hover {
     text-decoration: underline;
 }
+
+footer {
+    background-color: #005EB8;
+    color: white;
+    text-align: center;
+    padding: 2px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+ }
