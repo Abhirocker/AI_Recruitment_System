@@ -56,7 +56,7 @@ def predict_label_from_file(filepath):
     return predicted_label
 
 # User ---------------------------------------------------------------------------- Page
-# -------------------------------------Dashboard--------------------------------------------
+# -------------------------------------Dashboard----------------------------------------
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -135,11 +135,15 @@ def upload_resume():
     
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+        upload_folder = current_app.config['UPLOAD_FOLDER']
+        filepath = os.path.join(upload_folder, filename)
         file.save(filepath)
         
+        relative_filepath = os.path.relpath(filepath, upload_folder)
+        relative_filepath = os.path.join('uploads', relative_filepath)
+        
         # Save the file path in the session
-        session['resume_filepath'] = filepath
+        session['resume_filepath'] = relative_filepath
         
         # Predict label from the resume (without saving to the database)
         predicted_label = predict_label_from_file(filepath)
@@ -297,7 +301,7 @@ def apply(job_id):
         return "User not logged in", 403
     
 # View ---------------------------------------------------------------------------- Page
-# -------------------------------------Description--------------------------------------------
+# -------------------------------Description--------------------------------------------
 
 @user_blueprint.route('/view_job_description/<int:job_id>')
 def view_job_description(job_id):

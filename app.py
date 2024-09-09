@@ -7,7 +7,7 @@ from admin import admin_blueprint
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key_12345'
-app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'uploads')
+app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static/uploads')
 
 # Initialize the database
 init_db()

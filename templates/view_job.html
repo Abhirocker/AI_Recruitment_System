@@ -42,7 +42,8 @@
             <p><strong>Achievements:</strong> {{ user_info.achievements }}</p>
             <p><strong>Certifications:</strong> {{ user_info.certifications }}</p>
             {% if user_info.resume %}
-            <p><strong>Resume:</strong> <a href="{{ url_for('static', filename=user_info.resume) }}" target="_blank">View Resume</a></p>
+                <p><strong>Resume:</strong> <a href="{{ url_for('static', filename=(user_info.resume if 'uploads/' in user_info.resume else 'uploads/' + user_info.resume)) }}" target="_blank">View Resume</a></p>
+                <!-- <p><strong>Resume:</strong> <a href="{{ url_for('static', filename=user_info.resume) }}" target="_blank">View Resume</a></p> //-->
             {% endif %}
         </section>
         {% endif %}
@@ -65,7 +66,7 @@
                         <td>{{ application.username }}</td>
                         <td>
                             {% if application.resume %}
-                            <a href="{{ url_for('static', filename=application.resume) }}" target="_blank">View Resume</a>
+                            <a href="{{ url_for('static', filename=(application.resume if 'uploads/' in application.resume else 'uploads/' + application.resume)) }}" target="_blank">View Resume</a>
                             {% else %}
                             No Resume Available
                             {% endif %}
