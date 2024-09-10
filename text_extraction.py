@@ -47,20 +47,41 @@ def convert_pages_to_pdf(filepath):
 def extract_details_from_resume(text):
     # Define common terms
     common_skills = [
-        'Python', 'Java', 'JavaScript', 'C++', 'SQL', 'HTML', 'CSS',
-        'Machine Learning', 'AI', 'Data Science', 'Deep Learning', 'NLP',
-        'Project Management', 'Agile', 'Scrum', 'Git', 'Docker', 'AWS'
+        'Python', 'Java', 'JavaScript', 'C++', 'SQL', 'HTML', 'CSS', 'LibreOffice Calc', 'QlikView', 'Jira', 'Salesforce', 'IBM SPSS', 'ABBYY FlexiCapture', 'Slack', 'CyberArk', 'Tableau', 'C#', 'Azure DevOps', 'Visual Studio', 'SQL Server', 'ASP.NET Core',
+        'Machine Learning', 'AI', 'Data Science', 'Deep Learning', 'NLP', 'Celonis', 'IBM Watson Natural Language Understanding', 'Microsoft Azure ML', 'Salesforce Sales Cloud', 'Salesforce Agile Accelerator', '.NET Framework', 'Linux', 'Entity Framework',
+        'Project Management', 'Agile', 'Scrum', 'Git', 'Docker', 'AWS', 'MySQL', 'PostgreSQL', 'Microsoft Excel', 'MS Excel', 'Trello', 'Informatica Cloud', 'JUnit', 'IFTTT', 'Google Sheets', 'Matplotlib', 'Finance and Accounting', 'Docker', 'MongoDB', 'Azure',
+        'Powerpoint', 'MS Powerpoint', 'JIRA', 'Github', 'Appian', 'ARIS', 'SAP', 'Wrike', 'Pipedrive', 'Celonis', 'UiPath', 'Microsoft Office', 'Google Workspace', 'Tuleap', 'Quip', 'Balsamiq', 'Zapier', 'vhdl', 'assembler', 'typescript', 'matlab', 'xml', 'tcl',
+        'js', 'Ruby', 'Bash', 'Kubernetes', 'Terraform', 'Cloudformation', 'Jenkins', 'Azure Pipelines', 'LAMP stack', 'Nagios', 'RESTful APIS', 'Ansible', 'Zend Framework', 'Azure Monitor', 'Microsoft Azure', 'PowerShell', 'VMware', 'Trello', 'KVM/VZ Virtualization',
+        'Groovy', 'Chef', 'NoSQL', 'GitLab CI/CD', 'Bitbucket', 'Prometheus', 'Google Cloud Platform', 'Selenium', 'HashiCorp Vault', 'ElasticSearch', 'AWS (CLI, EC2, S3, RDS)', 'Greenhouse ATS', 'Recruiting coordination', 'ATS (Greenhouse)', 'Recruiting Coordination',
+        'Compliance (OFCCP, FMLA, FLSA, unemployment)', 'Employee Retention', 'Employee Coaching', 'LOA, FMLA, PLOA, Disability', 'HRIS (Workday)', 'PHR certification ATS (Workday, Jobvite) Compensation & Benefits Payroll Performance Management', 'HR Software (including Zenefits, and BambooHR)',
+        'BambooHR', 'Jobvite', 'Saba Cloud', 'BetterWorks', 'QuickBooks Payroll', 'Qualtrics EmployeeXM', 'ADP Time and Attendance', 'Google Workspace', 'Oracle Talent Management', 'Namely Benefits', 'Spring Boot', 'Maven', 'Confluence', 'Kanbanize', 'Hibernate', ' JavaServer Faces (JSF)',
+        'Windows', 'Apache Camel', 'AWS Lambda', 'Apache ActiveMQ', 'AWS API Gateway', 'OpenShift', 'AWS CodePipeline', 'IntelliJ IDEAJUnit', 'Swagger', 'Apache Maven', 'Angular.js', 'UNIX', 'Eclipse', 'Django', 'Node.js', '(REST) APIs', 'Appium', 'PyTest', 'Travis CI', 'BrowserStack', 'Appium',
+        'JMeter', 'TestRail', 'Zephyr', 'Gherkin', 'Bugzilla', 'LoadRunner', 'Burp Suit', 'OWASP ZAP', 'GenRocket', 'Apache JMeter', 'TestLodge', 'Delphix', 'Calabash', 'Postman', 'WordPress', 'Adobe Photoshop', 'Illustrator', 'XD', 'Figma', 'Wireframes', 'Mockups', 'Prototypes',
+        'Google Analytics', 'A/B Testing', 'macOS', 'Mobile-first design', 'Cross-browser compatibility', 'Flask', 'FastAPI', 'AWS (Redshift, S3)', 'REST APIs (GraphQL)', 'Microsoft Project', 'PMO Manager', 'Power BI', 'Project Planning', 'Resource Management', 'Risk Management',
+        'Firewalls', 'IDS/IPS', 'VPNs', 'Antivirus', 'Wireshark', 'Nmap', 'Nessus', 'TCP/IP', 'DNS', 'HTTP/HTTPS', 'SIEM', 'Splunk', 'SNPM', 'CAD', 'SolidWorks', 'Autodesk Inventor', 'MATLAB,', 'Primavera P6', 'ANSYS', 'COMSOL Multiphysics', 'AutoCAD', 'Revit', 'ANSYS Fluen', 'OpenFOAM',
+        'PTC Windchill', 'Siemens Teamcenter', 'LabVIEW', 'OSHA Safety Regulations', 'Word', 'ITIL', 'Project Management', 'Process Optimization', 'Microsoft Office Suite', 'Microsoft Word', 'Microsoft Powerpoint', 'Data analysis and reporting', 'Pandas', 'TensorFlow', 'Apache Hadoop', 'Amazon Redshift', 'NLTK', 'Apache Kafka',
+        'Machine and Deep Learning', 'Statistical Analysis', 'Processing Large Data Sets', 'Data Visualization', 'Mathematics', 'Data Wrangling', 'SQL (Structured Query Language)', 'Databricks', 'Scikit-learn', 'NLTK (Natural Language Toolkit) Informatica', 'Apache Spark', 'TensorFlow', 'Hadoop', 'Apache Mahout', 'SAS', 'Oracle',
+        'Amazon Web Services (AWS)', 'Apache Atlas', 'Jupyter Notebook', 'Python (NumPy, Pandas, Scikit- learn, Keras, Flask)', 'SQL (Redshift, MySQL, Postgres, NoSQL)', 'Pandas', 'R', 'Scala', 'Hadoop', 'SQLite', 'Keras', 'NumPy', 'ggplot2', 'dplyr', 'PyTorch', 'Time Series Forecasting', 'Productionizing Models',
+        'Recommendation Engines', 'Customer Segmentation', 'Matplotlib', 'Microsoft Power BI', 'ArcGIS', 'Adobe Illustrator', 'SPSS', 'Shiny', 'Unity3D', 'Supervised Learning', 'linear and logistic regressions', 'decision trees', 'support vector machines (SVM)', 'Unsupervised Learning', 'k- means clustering',
+        'principal component analysis (PCA)', 'Apache Airflow', 'SpaCy', 'Spark', 'GCP', 'Amazon Redshift', 'Talend', 'Epic Systems', 'spaCy', 'SVN'
     ]
     
     common_positions = [
-        'Software Engineer', 'Data Scientist', 'Product Manager', 'Project Manager', 
-        'Business Analyst', 'DevOps Engineer', 'Data Analyst', 'Project Engineer', 
-        'Full Stack Developer'
+        'Agile Business Analyst', 'Business Process Analyst', 'Junior Business Analyst', 'RPA Business Analyst', 'Business Systems Analyst', 'Senior Business Analyst', 'Business Analyst', 'Technical Business Analyst', 'Junior .NET Develope', 'Human Resources Manager',
+        'Senior .NET Developer', 'Senior Full Stack Software Developer', 'AWS DevOps Engineer', 'Azure DevOps', 'DevOps Engineer', 'DevOps Manager', 'DevOps Intern', 'Senior DevOps Engineer', 'Human Resources Intern', 'Human Resources Assistant', 'HR Generalist',
+        'Senior HR Manager', 'Java Developer', 'Junior Java Developer', 'Java AWS Integration Specialist', 'JAVA BACKEND DEVELOPER', 'Java Developer Intern', 'Senior Java Developer', 'Automation Tester', 'QA Tester', 'Software Tester', 'Tester', 'Senior Web Designer',
+        'Junior Web Designer', 'Junior Python Developer', 'Senior Python Developer', 'Python Developer', 'PMO Coordinator', 'PMO Manager', 'Junior Network Security Engineer', 'Senior Network Security Engineer', 'Mechanical Engineer', 'Mechanical Project Engineer',
+        'Senior Mechanical Engineer', 'Operations Manager', 'IT Operations Manager', 'Data Scientist', 'Data Scientist Intern', 'Data Science Manager', 'Data Science Director', 'Data Scientist, Analytics', 'Data Scientist Machine Learning Engineer', 'Data Visualization Specialist', 
+        'Senior Data Scientist', 'Google Data Scientist', 'Healthcare Data Scientist', 'NLP Data Scientist'
     ]
     
     common_education = [
-        'B.Sc', 'M.Sc', 'Ph.D', 'Bachelor of Science', 'Master of Science',
-        'Doctor of Philosophy', 'MBA', 'B.A.', 'B.Com', 'B.E', 'B.Tech'
+        'Bachelor of Science in Computer Science', 'B.S. Business', 'Bachelor of Science Business Administration', 'Bachelor of Business Administration Management Information Systems', 'Bachelor of Arts Human Resources Management',
+        'Doctor of Philosophy', 'B.S., Computer Science', 'MBA', 'B.A.', 'B.Com', 'B.E', 'B.Tech', 'Bachelor of Science Business', 'Bachelor of Science Computer Science', 'B.S. Computer Science', 'Master of Science Computer Science',
+        'Bachelor of Science in Business Human Resource Management', 'Bachelor of Science Software Engineering', 'Bachelor of Science, Computer Science', 'Bachelor of Fine Arts in Graphic Design', 'M.S. Computer Science', 'Bachelor of Science in Information Technology',
+        'Bachelor of Science in Cybersecurity', 'Bachelor of Science Mechanical Egineering', 'Bachelor of Science, Mechanical Engineering', 'Diploma', 'Bachelor of Arts Business Administration', 'IT Operations Coordinator', 'Senior Operations Manager', 'Data Science Director',
+        'B.S. Mathematics and Economics', 'Bachelor of Science Informatics', 'Data Science Intern', 'Masters degree Statistics', 'B.S. Statistics', 'Bachelor of Arts Data Science', 'Educational Data Scientist', 'B.S. Mathematics and Economics', 'Master of Computational Data Science',
+        'Master of Science Data Science', 'Master of Science Health Informatics', 'PhD Natural Language Processing (NLP)'
     ]
     
     common_achievements = [
@@ -69,8 +90,13 @@ def extract_details_from_resume(text):
     ]
     
     common_certifications = [
-        'Certified', 'Certification', 'AWS Certified', 'PMP', 'Scrum Master',
-        'Six Sigma', 'Data Scientist Certified', 'Cisco Certified', 'Microsoft Certified'
+        'Certified Business Process Associate (CBPA)', 'Entry Certificate in Business Analysis (ECBA)', 'Salesforce Certified Advanced Administrator', 'PMI Professional in Business Analysis (PMI-PBA)', 'Microsoft Certified: Azure Fundamentals', 'AWS Certified Solutions Architect',
+        'Amazon Web Services (AWS) Certified Solutions Architect (CSA)', 'Foundations of Human Resources Management Certificate', 'PMI Agile Certified Practitioner (PMI-ACP)', 'AWS Certified Solutions Architect', 'Oracle Certified Professional, Java SE 11 Developer (OCPJP)',
+        'Oracle Certified Professional: Java SE 11 Developer', 'Adobe Certified Expert (ACE) in Photoshop', 'Certified UX Designer', 'Adobe Certified Associate (ACA) in Visual Design', 'Python for Everybody Specialization', 'Certified Associate in Project Management (CAPM)',
+        'Project Management Professional (PMP)', 'Certified ScrumMaster (CSM)', 'ITIL Foundation Certification', 'Certified Information Systems Security Professional (CISSP)', 'Certified Ethical Hacker (CEH)', 'Cisco Certified Network Associate (CCNA) Security',
+        'CompTIA Security', 'Certified Ethical Hacker (CEH)', 'LEED Certification', 'Six Sigma Certification', 'Certified Reliability Engineer (CRE)', 'PMP Certification', 'Certified Information Systems Manager (CISM)', 'ITIL Expert Certification', 'Project Management Professional (PMP)',
+        'ITIL Foundation Certification', 'Open Certified Data Scientist (Open CDS)', 'Google Data Machine Learning', 'B.S. Data Science', 'SAS Certified Data Scientist Certified Analytics Professional (CAP)', 'Certified Machine Learning Engineer (CMLE)', ''
+        'AWS', 'Data Science (SAS) Principal Data Scientist (DASCA)'
     ]
     
     # Process the text with spaCy
