@@ -209,7 +209,7 @@ def predicted_job_match():
     ''', (session['username'],)).fetchone()
     
     if user_info:
-        user_info = dict(user_info)  # Convert Row object to dict
+        user_info = dict(user_info)
     else:
         user_info = {}
     
@@ -225,19 +225,21 @@ def manual_search():
     db = get_db()
     
     if search_query:
-        # Search jobs based on the position/title
+        # Search jobs based only on the position field in SQL
         jobs = db.execute('''
             SELECT id, position, company, location, experience_range, description, posted_date
             FROM job_applications
-            WHERE LOWER(position) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)
-        ''', (f'%{search_query.lower()}%', f'%{search_query.lower()}%')).fetchall()
-        
+            WHERE LOWER(position) LIKE LOWER(?)
+        ''', (f'%{search_query}%',)).fetchall()
+
         # Convert results to dictionaries
         jobs = [dict(job) for job in jobs]
-        
-        # Filter results in Python
+
+        # Python filtering for more accurate partial match based on position
         search_query_words = re.compile(r'\b' + re.escape(search_query.lower()) + r'\b', re.IGNORECASE)
-        jobs = [job for job in jobs if search_query_words.search(job['position']) or search_query_words.search(job['description'])]
+        refined_jobs = [job for job in jobs if search_query_words.search(job['position'].lower())]
+
+        jobs = refined_jobs
     else:
         jobs = []
     
@@ -258,9 +260,11 @@ def apply(job_id):
         flash('Resume file path not found')
         return redirect(url_for('user.user_dashboard'))
     
+    final_resume_filepath = os.path.join(current_app.static_folder, resume_filepath)
+    
     # Process the resume file path
     try:
-        resume_text = extract_text_from_file(resume_filepath)
+        resume_text = extract_text_from_file(final_resume_filepath)
     except Exception as e:
         flash(f'Error extracting text from file: {e}')
         return redirect(url_for('user.user_dashboard'))
