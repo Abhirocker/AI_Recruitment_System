@@ -192,4 +192,4 @@ if __name__ == '__main__':
     init_db()
     update_db()
     verify_db()
-    # drop_tables()
+    drop_tables()

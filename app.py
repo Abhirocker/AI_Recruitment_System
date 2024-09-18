@@ -1,12 +1,12 @@
 import os
-from flask import Flask, redirect, url_for, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory
 from create_db import init_db
 from auth import auth_blueprint
 from user import user_blueprint
 from admin import admin_blueprint
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret_key_12345'
+app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static/uploads')
 
 # Initialize the database
