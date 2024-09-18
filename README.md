@@ -17,19 +17,19 @@ The AI Recruitment and Resource Fulfillment System addresses these challenges by
 - **Data-Driven Decisions:** AI offers data-backed insights, helping HR professionals make more informed hiring decisions.
 - **Elimination of Bias:** The system reduces human bias by focusing on data-driven matching, ensuring that decisions are based on candidate qualifications and job descriptions.
 
-##**Features**
+## **Features**
 - **AI-Powered Resume Screening:** Automatically extracts skills using NLP to match candidates with relevant jobs.
 - **Similarity Scoring**: AI generates similarity scores based on resumes and job descriptions.
 - **Job Recommendations:** Provides personalized job suggestions based on skills.
 - **Admin Dashboard:** Admins can create, modify, and manage job postings, view applicant details, and perform CRUD operations.
 
-##**Tech Stack**
+## **Tech Stack**
 - **Frontend:** HTML, CSS, JavaScript
 - **Backend:** Python (Flask)
 - **Machine Learning:** scikit-learn (k-NN), NLP (spaCy)
 - **Database:** SQLite3
 
-##**Key Impact:**
+## **Key Impact:**
 AI significantly improves recruitment efficiency by automating labor-intensive processes, such as resume screening, skill extraction, and job matching.
 By using AI algorithms like k-Nearest Neighbors (k-NN), the system provides personalized job recommendations, reducing time spent on initial screenings and improving candidate-job fit.
 The system transforms recruitment into a faster, more scalable, and objective process, enabling organizations to meet their workforce demands swiftly and effectively while maintaining the quality of hires.
